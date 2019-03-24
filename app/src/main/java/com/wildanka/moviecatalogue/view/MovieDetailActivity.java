@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.Movie;
 
-import java.util.ArrayList;
 
 public class MovieDetailActivity extends AppCompatActivity {
     private TextView tvMovieTitle, tvRating, tvReleaseDate, tvOverview;
