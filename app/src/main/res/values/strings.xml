@@ -47,26 +47,26 @@
     </string-array>
 
     <string-array name="data_rating">
-        <item>75%</item>
-        <item>68%</item>
-        <item>83%</item>
-        <item>70%</item>
-        <item>81%</item>
-        <item>65%</item>
-        <item>66%</item>
-        <item>71%</item>
-        <item>78%</item>
-        <item>74%</item>
-        <item>66%</item>
-        <item>62%</item>
-        <item>67%</item>
-        <item>59%</item>
-        <item>66%</item>
-        <item>57%</item>
-        <item>85%</item>
-        <item>59%</item>
-        <item>65%</item>
-        <item>66%</item>
+        <item>75</item>
+        <item>68</item>
+        <item>83</item>
+        <item>70</item>
+        <item>81</item>
+        <item>65</item>
+        <item>66</item>
+        <item>71</item>
+        <item>78</item>
+        <item>74</item>
+        <item>66</item>
+        <item>62</item>
+        <item>67</item>
+        <item>59</item>
+        <item>66</item>
+        <item>57</item>
+        <item>85</item>
+        <item>59</item>
+        <item>65</item>
+        <item>66</item>
     </string-array>
 
     <string-array name="data_ov">
@@ -137,8 +137,19 @@
         <item>@drawable/poster_themule</item>
         <item>@drawable/poster_venom</item>
     </string-array>
+    <!--endregion movie string array-->
 
-    <!--TODO 2 : Create String array for each of the items-->
     <string name="app_name">Movie Catalogue</string>
     <string name="short_description_of_the_movies">Short Description of the movies</string>
+
+    <!--String placeholder-->
+    <string name="rating_in_percent">%1$s %%</string>
+
+    <!--initial value-->
+    <string name="title_activity_movie_detail">Movie Detail</string>
+
+    <string name="_0">0%</string>
+    <string name="title">Movie Title</string>
+    <string name="cd_movie_poster">movie_poster</string>
+    <string name="overview">Overview</string>
 </resources>

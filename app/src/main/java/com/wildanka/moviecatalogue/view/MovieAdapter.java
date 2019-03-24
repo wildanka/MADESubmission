@@ -1,6 +1,7 @@
 package com.wildanka.moviecatalogue.view;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,15 @@ public class MovieAdapter extends BaseAdapter {
             ivMoviePoster = view.findViewById(R.id.iv_movie_poster);
         }
         void bind(Movie movie) {
-            tvRating.setText(movie.getRating());
+            if (Integer.parseInt(movie.getRating()) < 60){
+                tvRating.setTextColor(ContextCompat.getColor(mContext,R.color.colorRed));
+            }else if(Integer.parseInt(movie.getRating()) < 70){
+                tvRating.setTextColor(ContextCompat.getColor(mContext,R.color.colorYellow));
+            }else{
+                tvRating.setTextColor(ContextCompat.getColor(mContext,R.color.colorGreen));
+            }
+//            movie.getRating() +"%"
+            tvRating.setText(mContext.getString(R.string.rating_in_percent,movie.getRating()));
             tvTitle.setText(movie.getTitle());
             tvShortDesc.setText(movie.getShortDescription());
             ivMoviePoster.setImageResource(movie.getIvPoster());

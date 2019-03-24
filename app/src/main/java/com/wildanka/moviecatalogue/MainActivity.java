@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.lv_movie);
 
-        //TODO 1 : implement the listView Adapter
         prepareStringArray();
 
         adapter = new MovieAdapter(this);
