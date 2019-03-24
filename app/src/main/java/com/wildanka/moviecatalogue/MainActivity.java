@@ -1,5 +1,6 @@
 package com.wildanka.moviecatalogue;
 
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,12 +11,16 @@ import android.widget.Toast;
 
 import com.wildanka.moviecatalogue.model.Movie;
 import com.wildanka.moviecatalogue.view.MovieAdapter;
+import com.wildanka.moviecatalogue.view.MovieDetailActivity;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private String[] dataTitle;
-    private String[] dataDescription;
+    private String[] dataOverview;
+    private String[] dataShortDescription;
+    private String[] dataYear;
+    private String[] dataRating;
     private TypedArray dataPoster;
     private MovieAdapter adapter;
     private ArrayList<Movie> movies;
@@ -38,8 +43,11 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent detailIntent = new Intent(MainActivity.this, MovieDetailActivity.class);
+                detailIntent.putExtra("selectedMovie", movies.get(position));
                 System.out.println(movies.get(position).getTitle());
                 Toast.makeText(MainActivity.this, movies.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                startActivity(detailIntent);
             }
         });
     }
@@ -49,10 +57,10 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < dataTitle.length; i++) {
             Movie movie = new Movie(
                     dataTitle[i],
-                    "1992",
-                    "75%",
-                    dataDescription[i],
-                    dataDescription[i],
+                    dataYear[i],
+                    dataRating[i],
+                    dataShortDescription[i],
+                    dataOverview[i],
                     dataPoster.getResourceId(i,-1)
             );
             movies.add(movie);
@@ -62,8 +70,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void prepareStringArray(){
-        dataTitle = getResources().getStringArray(R.array.data_name);
-        dataDescription = getResources().getStringArray(R.array.data_description);
-        dataPoster = getResources().obtainTypedArray(R.array.data_photo);
+        dataTitle = getResources().getStringArray(R.array.data_title);
+        dataOverview = getResources().getStringArray(R.array.data_ov);
+        dataShortDescription = getResources().getStringArray(R.array.data_short_desc);
+        dataPoster = getResources().obtainTypedArray(R.array.data_poster);
+        dataYear = getResources().getStringArray(R.array.data_year);
+        dataRating = getResources().getStringArray(R.array.data_rating);
+
     }
 }
