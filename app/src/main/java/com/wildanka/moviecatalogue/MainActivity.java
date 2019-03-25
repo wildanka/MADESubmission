@@ -1,17 +1,14 @@
 package com.wildanka.moviecatalogue;
 
-import android.content.Intent;
 import android.content.res.TypedArray;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.wildanka.moviecatalogue.model.Movie;
-import com.wildanka.moviecatalogue.view.MovieAdapter;
-import com.wildanka.moviecatalogue.view.MovieDetailActivity;
+import com.wildanka.moviecatalogue.view.MovieRVAdapter;
 
 import java.util.ArrayList;
 
@@ -22,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private String[] dataYear;
     private String[] dataRating;
     private TypedArray dataPoster;
-    private MovieAdapter adapter;
+    private MovieRVAdapter adapter;
     private ArrayList<Movie> movies;
 
     @Override
@@ -30,25 +27,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView listView = findViewById(R.id.lv_movie);
+        RecyclerView recyclerView = findViewById(R.id.rv_movie);
 
         prepareStringArray();
-
-        adapter = new MovieAdapter(this);
-        listView.setAdapter(adapter);
         addItem();
 
-        //create a listview listener
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent detailIntent = new Intent(MainActivity.this, MovieDetailActivity.class);
-                detailIntent.putExtra("selectedMovie", movies.get(position));
-                System.out.println(movies.get(position).getTitle());
-                Toast.makeText(MainActivity.this, movies.get(position).getTitle(), Toast.LENGTH_SHORT).show();
-                startActivity(detailIntent);
-            }
-        });
+        adapter = new MovieRVAdapter(this);
+        adapter.setListMovie(movies);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(adapter);
+
     }
 
     private void addItem(){
@@ -64,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
             );
             movies.add(movie);
         }
-        //after finishing the loop, let's send the data to the adapter
-        adapter.setListMovie(movies);
     }
 
     private void prepareStringArray(){

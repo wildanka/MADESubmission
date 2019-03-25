@@ -2,20 +2,22 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="166dp">
+    android:layout_height="175dp">
 
     <ImageView
-        android:id="@+id/iv_movie_poster"
+        android:id="@+id/iv_item_movie_poster"
         android:layout_width="100dp"
         android:layout_height="150dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/poster_deadpool"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_rating"
+        android:id="@+id/tv_item_rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -24,10 +26,10 @@
         android:text="@string/_0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/iv_movie_poster"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_movie_poster"
         app:layout_constraintTop_toTopOf="parent" />
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -37,19 +39,35 @@
         android:textColor="@color/colorBlack"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/tv_rating"
+        app:layout_constraintStart_toEndOf="@+id/tv_item_rating"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_short_desc"
-        android:text="@string/short_description_of_the_movies"
+        android:id="@+id/tv_item_release_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/release_date_data"
+        android:textColor="@color/colorBlack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_movie_poster"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_title" />
+
+
+    <TextView
+        android:id="@+id/tv_item_short_desc"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_movie_poster"
+        android:text="@string/short_description_of_the_movies"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_release_date"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_movie_poster"
-        app:layout_constraintTop_toBottomOf="@+id/tv_rating" />
+        app:layout_constraintStart_toEndOf="@+id/iv_item_movie_poster" />
 </android.support.constraint.ConstraintLayout>
