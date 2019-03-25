@@ -1,68 +1,33 @@
 package com.wildanka.moviecatalogue;
 
-import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.ListView;
 
-import com.wildanka.moviecatalogue.model.Movie;
-import com.wildanka.moviecatalogue.view.MovieRVAdapter;
-
-import java.util.ArrayList;
+import com.wildanka.moviecatalogue.view.MovieFragment;
+import com.wildanka.moviecatalogue.view.adapter.MoviesVPAdapter;
 
 public class MainActivity extends AppCompatActivity {
-    private String[] dataTitle;
-    private String[] dataOverview;
-    private String[] dataShortDescription;
-    private String[] dataYear;
-    private String[] dataRating;
-    private TypedArray dataPoster;
-    private MovieRVAdapter adapter;
-    private ArrayList<Movie> movies;
+    private MoviesVPAdapter tabAdapter;
+    private TabLayout tlMoviesCategory;
+    private ViewPager vpMoviesCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //binding view
+        tlMoviesCategory = (TabLayout) findViewById(R.id.tl_movies_category);
+        vpMoviesCategory = (ViewPager) findViewById(R.id.vp_movies_category);
 
-        RecyclerView recyclerView = findViewById(R.id.rv_movie);
+        tabAdapter = new MoviesVPAdapter(getSupportFragmentManager());
+        tabAdapter.addFragment(new MovieFragment(), "Movies");
+        tabAdapter.addFragment(new MovieFragment(), "TV Shows");
 
-        prepareStringArray();
-        addItem();
-
-        adapter = new MovieRVAdapter(this);
-        adapter.setListMovie(movies);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
-
+        vpMoviesCategory.setAdapter(tabAdapter);
+        tlMoviesCategory.setupWithViewPager(vpMoviesCategory);
     }
 
-    private void addItem(){
-        movies = new ArrayList<>();
-        for (int i = 0; i < dataTitle.length; i++) {
-            Movie movie = new Movie(
-                    dataTitle[i],
-                    dataYear[i],
-                    dataRating[i],
-                    dataShortDescription[i],
-                    dataOverview[i],
-                    dataPoster.getResourceId(i,-1)
-            );
-            movies.add(movie);
-        }
-    }
 
-    private void prepareStringArray(){
-        dataTitle = getResources().getStringArray(R.array.data_title);
-        dataOverview = getResources().getStringArray(R.array.data_ov);
-        dataShortDescription = getResources().getStringArray(R.array.data_short_desc);
-        dataPoster = getResources().obtainTypedArray(R.array.data_poster);
-        dataYear = getResources().getStringArray(R.array.data_year);
-        dataRating = getResources().getStringArray(R.array.data_rating);
-
-    }
 }

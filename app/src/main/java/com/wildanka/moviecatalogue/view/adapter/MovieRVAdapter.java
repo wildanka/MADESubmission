@@ -1,6 +1,7 @@
-package com.wildanka.moviecatalogue.view;
+package com.wildanka.moviecatalogue.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.Movie;
+import com.wildanka.moviecatalogue.view.MovieDetailActivity;
 
 import java.util.ArrayList;
 
@@ -40,9 +43,21 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieRVViewHolder movieRVViewHolder, int i) {
+    public void onBindViewHolder(@NonNull MovieRVViewHolder holder, int i) {
         final Movie selectedMovie = listMovie.get(i);
-        movieRVViewHolder.bind(selectedMovie);
+        holder.bind(selectedMovie);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent detailIntent = new Intent(mContext, MovieDetailActivity.class);
+                detailIntent.putExtra("selectedMovie", selectedMovie);
+                System.out.println(selectedMovie.getTitle());
+                Toast.makeText(mContext, selectedMovie.getTitle(), Toast.LENGTH_SHORT).show();
+                mContext.startActivity(detailIntent);
+            }
+        });
+
     }
 
     @Override
