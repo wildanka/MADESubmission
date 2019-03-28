@@ -7,10 +7,13 @@
     tools:context=".view.MovieDetailActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:theme="@style/ToolbarTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <android.support.v7.widget.Toolbar
+            android:theme="@style/ToolbarTheme"
             android:id="@+id/tb_movie_activity_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
