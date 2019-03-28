@@ -93,7 +93,7 @@
     </string-array>
 
     <string-array name="data_short_desc">
-        <item>Seasoned musician Jackson Maine discovers — and falls in love with — struggling artist Ally. She has just about given up on her dream to make it big as a singer — until Jack coaxes her into the spotlight. But even…</item>
+        <item>Musisi kawakan Jackson Maine menemukan - dan jatuh cinta dengan - artis yang sedang berjuang Ally. Dia baru saja melepaskan peran besarnya sebagai penyanyi - sampai Jack membujuknya menjadi sorotan. Acara tapi …</item>
         <item>Once home to the most advanced civilization on Earth, Atlantis is now an underwater kingdom ruled by the power-hungry King Orm. With a vast army at his disposal, Orm plans to conquer the remaining oceanic people…</item>
         <item>As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy…</item>
         <item>Five years after an ominous unseen presence drives most of society to suicide, a survivor and her two children make a desperate bid to reach safety.</item>
@@ -139,26 +139,25 @@
     </string-array>
     <!--endregion movie string array-->
 
-    <string name="app_name">Movie Catalogue</string>
-    <string name="short_description_of_the_movies">Short Description of the movies</string>
+    <string name="app_name">Katalog Film</string>
+    <string name="short_description_of_the_movies">Deskripsi Singkat Film</string>
 
     <!--String placeholder-->
     <string name="rating_in_percent">%1$s %%</string>
 
     <!--initial value-->
-    <string name="title_activity_movie_detail">Movie Detail</string>
+    <string name="title_activity_movie_detail">Detail Film</string>
 
     <string name="_0">0%</string>
-    <string name="title">Movie Title</string>
+    <string name="title">Judul Film</string>
     <string name="cd_movie_poster">movie_poster</string>
-    <string name="overview">Overview</string>
+    <string name="overview">Tinjauan</string>
     <string name="loading_data">Loading Data</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="release_date_data">release date data</string>
-    <string name="settings">Settings</string>
+    <string name="release_date_data">data tanggal rilis</string>
+    <string name="settings">Pengaturan</string>
     <string name="english">English</string>
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
-    <string name="save_changes">Save Changes</string>
 </resources>

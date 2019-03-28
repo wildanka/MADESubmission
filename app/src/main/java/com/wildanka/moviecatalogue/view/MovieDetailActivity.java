@@ -3,6 +3,7 @@ package com.wildanka.moviecatalogue.view;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,9 +22,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         //receive the intent extras
         Movie movie = getIntent().getParcelableExtra("selectedMovie");
 
-        //set up button
+        //Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_movie_activity_detail);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //set up button
         tvMovieTitle = findViewById(R.id.tv_title);
         tvRating = findViewById(R.id.tv_rating_detail);
         tvReleaseDate = findViewById(R.id.tv_detail_year);
