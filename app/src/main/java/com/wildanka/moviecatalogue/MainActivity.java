@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.wildanka.moviecatalogue.view.MovieFragment;
+import com.wildanka.moviecatalogue.view.TVShowFragment;
 import com.wildanka.moviecatalogue.view.adapter.MoviesVPAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabAdapter = new MoviesVPAdapter(getSupportFragmentManager());
         tabAdapter.addFragment(new MovieFragment(), "Movies");
-        tabAdapter.addFragment(new MovieFragment(), "TV Shows");
+        tabAdapter.addFragment(new TVShowFragment(), "TV Shows");
 
         vpMoviesCategory.setAdapter(tabAdapter);
         tlMoviesCategory.setupWithViewPager(vpMoviesCategory);
