@@ -32,7 +32,7 @@
             android:layout_height="150dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:src="@drawable/poster_a_star"
+            android:src="@drawable/poster_a_start_is_born"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
