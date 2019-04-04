@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         tabAdapter = new MoviesVPAdapter(getSupportFragmentManager());
         tabAdapter.addFragment(new MovieFragment(), "Movies");
-        tabAdapter.addFragment(new TVShowFragment(), "TV Shows");
+        tabAdapter.addFragment(new TVShowFragment() , "TV Shows");
 
         vpMoviesCategory.setAdapter(tabAdapter);
         tlMoviesCategory.setupWithViewPager(vpMoviesCategory);
