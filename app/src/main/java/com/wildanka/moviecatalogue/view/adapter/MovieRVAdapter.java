@@ -1,7 +1,6 @@
 package com.wildanka.moviecatalogue.view.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -13,8 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.wildanka.moviecatalogue.R;
-import com.wildanka.moviecatalogue.model.Movie;
-import com.wildanka.moviecatalogue.view.MovieDetailActivity;
+import com.wildanka.moviecatalogue.model.entity.Movie;
 
 import java.util.ArrayList;
 
@@ -50,11 +48,11 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent detailIntent = new Intent(mContext, MovieDetailActivity.class);
-                detailIntent.putExtra("selectedMovie", selectedMovie);
+//                Intent detailIntent = new Intent(mContext, MovieDetailActivity.class);
+//                detailIntent.putExtra("selectedMovie", selectedMovie);
                 System.out.println(selectedMovie.getTitle());
                 Toast.makeText(mContext, selectedMovie.getTitle(), Toast.LENGTH_SHORT).show();
-                mContext.startActivity(detailIntent);
+//                mContext.startActivity(detailIntent);
             }
         });
 
@@ -62,7 +60,12 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
 
     @Override
     public int getItemCount() {
-        return (listMovie.isEmpty()) ? 0 : listMovie.size();
+        if (listMovie==null){
+            return 0;
+        }else {
+            return listMovie.size();
+        }
+//        return (listMovie.isEmpty()) ? 0 : listMovie.size();
     }
 
     class MovieRVViewHolder extends RecyclerView.ViewHolder {
@@ -87,7 +90,7 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
 
             tvRating.setText(mContext.getString(R.string.rating_in_percent,movie.getRating()));
             tvMovieTitle.setText(movie.getTitle());
-            tvShortDesc.setText(movie.getShortDescription());
+            tvShortDesc.setText(movie.getOverview());
             tvReleaseDate.setText(movie.getDateYear());
             ivMoviePoster.setImageDrawable(mContext.getDrawable(movie.getIvPoster()));
         }

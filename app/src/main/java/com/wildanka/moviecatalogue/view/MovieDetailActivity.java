@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.wildanka.moviecatalogue.R;
-import com.wildanka.moviecatalogue.model.Movie;
+import com.wildanka.moviecatalogue.model.entity.Movie;
 
 
 public class MovieDetailActivity extends AppCompatActivity {

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wildanka.moviecatalogue.R;
-import com.wildanka.moviecatalogue.model.Movie;
+import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class TVShowFragment extends Fragment {
 
         //initialize the data
         prepareStringArray();
-        addItem();
+//        addItem();
 
         adapter = new MovieRVAdapter(getActivity());
         adapter.setListMovie(movies);
@@ -54,20 +54,6 @@ public class TVShowFragment extends Fragment {
     }
 
 
-    private void addItem(){
-        movies = new ArrayList<>();
-        for (int i = 0; i < dataTitle.length; i++) {
-            Movie movie = new Movie(
-                    dataTitle[i],
-                    dataYear[i],
-                    dataRating[i],
-                    dataShortDescription[i],
-                    dataOverview[i],
-                    dataPoster.getResourceId(i,-1)
-            );
-            movies.add(movie);
-        }
-    }
 
     private void prepareStringArray(){
         dataTitle = getResources().getStringArray(R.array.tv_data_title);
