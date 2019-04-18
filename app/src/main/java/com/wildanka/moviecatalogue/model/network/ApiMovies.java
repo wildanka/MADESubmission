@@ -2,6 +2,7 @@ package com.wildanka.moviecatalogue.model.network;
 
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.MovieFeeds;
+import com.wildanka.moviecatalogue.model.entity.TvShowFeeds;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -15,10 +16,10 @@ public interface ApiMovies {
             @Query("language") String language //en-US
     );
 
-    @GET("discover/tv?api_key={API_KEY}&language={language}")
-    Call<MovieFeeds> loadTVShowList(
-            @Path("API_KEY") String apiKey,
-            @Path("language") String language //en-US
+    @GET("discover/tv")
+    Call<TvShowFeeds> loadTVShowList(
+            @Query("api_key") String apiKey,
+            @Query("language") String language //en-US
     );
 
 

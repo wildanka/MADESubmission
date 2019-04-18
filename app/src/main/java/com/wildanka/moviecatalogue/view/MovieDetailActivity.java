@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 
@@ -46,7 +47,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvRating.setText(MovieDetailActivity.this.getString(R.string.rating_in_percent,movie.getRating()));
         tvReleaseDate.setText(movie.getDateYear());
         tvOverview.setText(movie.getOverview());
-
-        ivMoviePoster.setImageDrawable(getResources().getDrawable(movie.getIvPoster()));
+        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
+        Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
+//        ivMoviePoster.setImageDrawable(getResources().getDrawable(movie.getIvPoster()));
     }
 }

@@ -2,15 +2,18 @@ package com.wildanka.moviecatalogue.model.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Movie {
+public class TvShow {
 
     @SerializedName("id")
     private String idMovie;
     @SerializedName("vote_count")
     private String voteCount;
-    @SerializedName("title")
+    @SerializedName("original_name")
+    private String originalName;
+    @SerializedName("name")
     private String title;
-    @SerializedName("release_date")
+
+    @SerializedName("first_air_date")
     private String dateYear;
     @SerializedName("vote_average")
     private String rating;
@@ -26,12 +29,10 @@ public class Movie {
     @SerializedName("popularity")
     private String popularity;
 
-    @SerializedName("adult")
-    private boolean adult;
-
-    public Movie(String idMovie, String voteCount, String title, String dateYear, String rating, String overview, String posterPath, String originalLanguage, String popularity, boolean adult) {
+    public TvShow(String idMovie, String voteCount, String originalName, String title, String dateYear, String rating, String overview, String posterPath, String originalLanguage, String popularity) {
         this.idMovie = idMovie;
         this.voteCount = voteCount;
+        this.originalName = originalName;
         this.title = title;
         this.dateYear = dateYear;
         this.rating = rating;
@@ -39,8 +40,8 @@ public class Movie {
         this.posterPath = posterPath;
         this.originalLanguage = originalLanguage;
         this.popularity = popularity;
-        this.adult = adult;
     }
+
 
     public String getIdMovie() {
         return idMovie;
@@ -48,6 +49,10 @@ public class Movie {
 
     public String getVoteCount() {
         return voteCount;
+    }
+
+    public String getOriginalName() {
+        return originalName;
     }
 
     public String getTitle() {
@@ -78,7 +83,19 @@ public class Movie {
         return popularity;
     }
 
-    public boolean isAdult() {
-        return adult;
+    @Override
+    public String toString() {
+        return "TvShow{" +
+                "idMovie='" + idMovie + '\'' +
+                ", voteCount='" + voteCount + '\'' +
+                ", originalName='" + originalName + '\'' +
+                ", title='" + title + '\'' +
+                ", dateYear='" + dateYear + '\'' +
+                ", rating='" + rating + '\'' +
+                ", overview='" + overview + '\'' +
+                ", posterPath='" + posterPath + '\'' +
+                ", originalLanguage='" + originalLanguage + '\'' +
+                ", popularity='" + popularity + '\'' +
+                '}';
     }
 }

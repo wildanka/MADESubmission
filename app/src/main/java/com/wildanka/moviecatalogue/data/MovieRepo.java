@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.MovieFeeds;
+import com.wildanka.moviecatalogue.model.entity.TvShow;
+import com.wildanka.moviecatalogue.model.entity.TvShowFeeds;
 import com.wildanka.moviecatalogue.model.network.ApiMovies;
 import com.wildanka.moviecatalogue.util.ApiClient;
 
@@ -46,6 +48,32 @@ public class MovieRepo {
 
             @Override
             public void onFailure(Call<MovieFeeds> call, Throwable t) {
+                Log.e(TAG, "onFailure: "+t.getMessage());
+            }
+        });
+        return data;
+    }
+    public MutableLiveData<List<TvShow>> getTVList(){
+        final MutableLiveData<TvShowFeeds> feeds = new MutableLiveData<>();
+        final MutableLiveData<List<TvShow>> data = new MutableLiveData<>();
+
+        ApiMovies api = ApiClient.getClient().create(ApiMovies.class);
+        Call<TvShowFeeds> call = api.loadTVShowList(API_V3_KEY, "en-US");
+        call.enqueue(new Callback<TvShowFeeds>() {
+            @Override
+            public void onResponse(Call<TvShowFeeds> call, Response<TvShowFeeds> response) {
+                if (response.code()==200){
+                    feeds.setValue(response.body());
+                    Log.e(TAG, "onResponse: "+response.body().toString() );
+                    data.setValue(feeds.getValue().getTvShows());
+                }else{
+                    Log.e(TAG, "onResponse: "+response.errorBody().toString());
+                    Log.e(TAG, "onResponse: "+response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TvShowFeeds> call, Throwable t) {
                 Log.e(TAG, "onFailure: "+t.getMessage());
             }
         });

@@ -15,22 +15,23 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.entity.Movie;
+import com.wildanka.moviecatalogue.model.entity.TvShow;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVViewHolder> {
+public class TvShowRVAdapter extends RecyclerView.Adapter<TvShowRVAdapter.MovieRVViewHolder> {
     private static final String TAG = "MovieRVAdapter";
     private Context mContext;
-    private List<Movie> listMovie;
+    private List<TvShow> listMovie;
 
-    public void setListMovie(List<Movie> listMovie) {
+    public void setListMovie(List<TvShow> listMovie) {
         this.listMovie = listMovie;
         notifyDataSetChanged();
     }
 
+    //todo create tvShow adapter
     //inject the context here from the constructor
-    public MovieRVAdapter(Context mContext) {
+    public TvShowRVAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -46,7 +47,7 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
 
     @Override
     public void onBindViewHolder(@NonNull MovieRVViewHolder holder, int i) {
-        final Movie selectedMovie = listMovie.get(i);
+        final TvShow selectedMovie = listMovie.get(i);
         holder.bind(selectedMovie);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -83,22 +84,22 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
             tvReleaseDate = (TextView) itemView.findViewById(R.id.tv_item_release_date);
             ivMoviePoster = (ImageView) itemView.findViewById(R.id.iv_item_movie_poster);
         }
-        void bind(Movie movie){
-            if (Double.parseDouble(movie.getRating()) < 6.0){
+        void bind(TvShow tvShow){
+            if (Double.parseDouble(tvShow.getRating()) < 6.0){
                 tvRating.setTextColor(ContextCompat.getColor(mContext,R.color.colorRed));
-            }else if(Double.parseDouble(movie.getRating()) < 7.0){
+            }else if(Double.parseDouble(tvShow.getRating()) < 7.0){
                 tvRating.setTextColor(ContextCompat.getColor(mContext,R.color.colorYellow));
             }else{
                 tvRating.setTextColor(ContextCompat.getColor(mContext,R.color.colorGreen));
             }
 
-            tvRating.setText(mContext.getString(R.string.rating_in_percent,movie.getRating()));
-            tvMovieTitle.setText(movie.getTitle());
-            tvShortDesc.setText(movie.getOverview());
-            tvReleaseDate.setText(movie.getDateYear());
-            String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
+            tvRating.setText(mContext.getString(R.string.rating_in_percent,tvShow.getRating()));
+            tvMovieTitle.setText(tvShow.getTitle());
+            tvShortDesc.setText(tvShow.getOverview());
+            tvReleaseDate.setText(tvShow.getDateYear());
+            String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+tvShow.getPosterPath();
             Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
-            Log.e(TAG, "bind: https://image.tmdb.org/t/p/w185/"+movie.getPosterPath());
+            Log.e(TAG, "bind: https://image.tmdb.org/t/p/w185/"+tvShow.getPosterPath());
 //            ivMoviePoster.setImageDrawable(mContext.getDrawable(movie.getIvPoster()));
         }
     }

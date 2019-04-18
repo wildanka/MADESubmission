@@ -31,7 +31,6 @@ public class MovieFragment extends Fragment {
     private String[] dataYear;
     private String[] dataRating;
     private TypedArray dataPoster;
-    private ArrayList<Movie> movies;
     private MovieRVAdapter adapter;
     private MovieTVViewModel viewModel;
 
@@ -49,10 +48,8 @@ public class MovieFragment extends Fragment {
 
         //initialize the data
         prepareStringArray();
-//        addItem();
 
         adapter = new MovieRVAdapter(getActivity());
-        adapter.setListMovie(movies);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -61,7 +58,8 @@ public class MovieFragment extends Fragment {
         viewModel.getMovieLists().observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
-//                System.out.println(movies.get(0).getTitle());
+                System.out.println(movies.get(0).getTitle());
+                adapter.setListMovie(movies);
             }
         });
         return rootView;
