@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.wildanka.moviecatalogue.MainActivity;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.util.SharedPref;

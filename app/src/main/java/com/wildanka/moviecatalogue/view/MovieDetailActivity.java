@@ -1,15 +1,14 @@
 package com.wildanka.moviecatalogue.view;
 
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.R;
-import com.wildanka.moviecatalogue.model.entity.Movie;
 
 
 public class MovieDetailActivity extends AppCompatActivity {

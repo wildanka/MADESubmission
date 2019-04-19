@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.R;
-import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.TvShow;
 import com.wildanka.moviecatalogue.view.MovieDetailActivity;
 

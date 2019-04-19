@@ -13,7 +13,6 @@ import com.wildanka.moviecatalogue.view.TVShowFragment;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MoviesVPAdapter extends FragmentStatePagerAdapter {
     private final SparseArray<WeakReference<Fragment>> instantiatedFragment = new SparseArray<>();

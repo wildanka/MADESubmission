@@ -18,7 +18,6 @@ import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.view.MovieDetailActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVViewHolder> {

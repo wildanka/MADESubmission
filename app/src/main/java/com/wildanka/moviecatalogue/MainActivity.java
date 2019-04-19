@@ -97,6 +97,5 @@ public class MainActivity extends AppCompatActivity implements ChangeLanguageDia
                 ((TVShowFragment) fragmentTVShow).onRefresh(language);
             }
         }
-//        Log.e(TAG, "OnLanguageChangedListener: " + language);
     }
 }
