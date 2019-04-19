@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.wildanka.moviecatalogue.MainActivity;
 import com.wildanka.moviecatalogue.R;
@@ -35,6 +36,7 @@ public class MovieFragment extends Fragment {
     private TypedArray dataPoster;
     private MovieRVAdapter adapter;
     private MovieTVViewModel viewModel;
+    private ProgressBar loadingBar;
     private static final String TAG = "MovieFragment";
 
     public MovieFragment() {
@@ -55,6 +57,7 @@ public class MovieFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.rv_movie);
+        loadingBar = rootView.findViewById(R.id.pb_movie_fragment);
 
         //initialize the data
         prepareStringArray();
@@ -64,12 +67,13 @@ public class MovieFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
-
+        loadingBar.setVisibility(View.VISIBLE);
         viewModel.getMovieLists(language).observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
                 System.out.println(movies.get(0).getTitle());
                 adapter.setListMovie(movies);
+                loadingBar.setVisibility(View.INVISIBLE);
             }
         });
         return rootView;
@@ -86,6 +90,7 @@ public class MovieFragment extends Fragment {
     }
 
     public void onRefresh(String language) {
+        loadingBar.setVisibility(View.VISIBLE);
         viewModel.forceGetMovieLists(language).observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
@@ -94,6 +99,7 @@ public class MovieFragment extends Fragment {
                 }else{
                     System.out.println(movies.get(0).getTitle());
                     adapter.setListMovie(movies);
+                    loadingBar.setVisibility(View.INVISIBLE);
                 }
             }
         });

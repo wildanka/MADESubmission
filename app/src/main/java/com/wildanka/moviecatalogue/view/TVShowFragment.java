@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.wildanka.moviecatalogue.MainActivity;
 import com.wildanka.moviecatalogue.R;
@@ -35,6 +36,7 @@ public class TVShowFragment extends Fragment {
     private TypedArray dataPoster;
     private TvShowRVAdapter adapter;
     private MovieTVViewModel viewModel;
+    private ProgressBar loadingBar;
     private static final String TAG = "TVShowFragment";
 
     public TVShowFragment() {
@@ -55,6 +57,7 @@ public class TVShowFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.rv_movie);
+        loadingBar = rootView.findViewById(R.id.pb_movie_fragment);
 
         //initialize the data
         prepareStringArray();
@@ -65,6 +68,7 @@ public class TVShowFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
+        loadingBar.setVisibility(View.VISIBLE);
         viewModel.getTVLists(language).observe(this, new Observer<List<TvShow>>() {
             @Override
             public void onChanged(@Nullable List<TvShow> tvShows) {
@@ -73,6 +77,7 @@ public class TVShowFragment extends Fragment {
                 }else{
                     System.out.println(tvShows.get(0).getTitle());
                     adapter.setListMovie(tvShows);
+                    loadingBar.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -91,6 +96,7 @@ public class TVShowFragment extends Fragment {
     }
 
     public void onRefresh(String language){
+        loadingBar.setVisibility(View.VISIBLE);
         viewModel.forceGetTVLists(language).observe(this, new Observer<List<TvShow>>() {
             @Override
             public void onChanged(@Nullable List<TvShow> tvShows) {
@@ -99,6 +105,7 @@ public class TVShowFragment extends Fragment {
                 }else{
                     System.out.println(tvShows.get(0).getTitle());
                     adapter.setListMovie(tvShows);
+                    loadingBar.setVisibility(View.INVISIBLE);
                 }
             }
         });
