@@ -89,9 +89,12 @@ public class MovieFragment extends Fragment {
         viewModel.getMovieLists(language).observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
-                System.out.println(movies.get(0).getTitle());
-                adapter.setListMovie(movies);
-                Log.e(TAG, "OnRefresh MOooooooooooo");
+                if (movies == null) {
+                    Log.e(TAG, "OnRefresh MOooooooooooo");
+                }else{
+                    System.out.println(movies.get(0).getTitle());
+                    adapter.setListMovie(movies);
+                }
             }
         });
         Log.e(TAG, "OnRefresh MOoooooooooooVIIIIIIIIIIIe");

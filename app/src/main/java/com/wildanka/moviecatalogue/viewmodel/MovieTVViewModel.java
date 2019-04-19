@@ -15,9 +15,7 @@ public class MovieTVViewModel extends ViewModel {
     private MutableLiveData<List<TvShow>> tvLists;
 
     public LiveData<List<Movie>> getMovieLists(String language) {
-        if (movieLists == null) {
-            loadMovieLists(language);
-        }
+        loadMovieLists(language);
         return movieLists;
     }
 
@@ -26,9 +24,7 @@ public class MovieTVViewModel extends ViewModel {
     }
 
     public LiveData<List<TvShow>> getTVLists(String language) {
-        if (movieLists == null) {
-            loadTVLists(language);
-        }
+        loadTVLists(language);
         return tvLists;
     }
 
