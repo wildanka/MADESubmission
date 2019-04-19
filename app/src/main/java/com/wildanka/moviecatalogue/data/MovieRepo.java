@@ -27,12 +27,12 @@ public class MovieRepo {
         return SingletonHelper.INSTANCE;
     }
 
-    public MutableLiveData<List<Movie>> getMovieList(){
+    public MutableLiveData<List<Movie>> getMovieList(String language){
         final MutableLiveData<MovieFeeds> feeds = new MutableLiveData<>();
         final MutableLiveData<List<Movie>> data = new MutableLiveData<>();
 
         ApiMovies api = ApiClient.getClient().create(ApiMovies.class);
-        Call<MovieFeeds> call = api.loadMovieList(API_V3_KEY, "en-US");
+        Call<MovieFeeds> call = api.loadMovieList(API_V3_KEY, language);
         call.enqueue(new Callback<MovieFeeds>() {
             @Override
             public void onResponse(Call<MovieFeeds> call, Response<MovieFeeds> response) {
@@ -53,12 +53,12 @@ public class MovieRepo {
         });
         return data;
     }
-    public MutableLiveData<List<TvShow>> getTVList(){
+    public MutableLiveData<List<TvShow>> getTVList(String language){
         final MutableLiveData<TvShowFeeds> feeds = new MutableLiveData<>();
         final MutableLiveData<List<TvShow>> data = new MutableLiveData<>();
 
         ApiMovies api = ApiClient.getClient().create(ApiMovies.class);
-        Call<TvShowFeeds> call = api.loadTVShowList(API_V3_KEY, "en-US");
+        Call<TvShowFeeds> call = api.loadTVShowList(API_V3_KEY, language);
         call.enqueue(new Callback<TvShowFeeds>() {
             @Override
             public void onResponse(Call<TvShowFeeds> call, Response<TvShowFeeds> response) {

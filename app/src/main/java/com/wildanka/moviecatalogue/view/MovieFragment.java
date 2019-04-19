@@ -9,16 +9,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wildanka.moviecatalogue.MainActivity;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.entity.Movie;
+import com.wildanka.moviecatalogue.util.SharedPref;
 import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter;
 import com.wildanka.moviecatalogue.viewmodel.MovieTVViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,15 +35,23 @@ public class MovieFragment extends Fragment {
     private TypedArray dataPoster;
     private MovieRVAdapter adapter;
     private MovieTVViewModel viewModel;
+    private static final String TAG = "MovieFragment";
 
     public MovieFragment() {
         // Required empty public constructor
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        viewModel = ViewModelProviders.of(getActivity()).get(MovieTVViewModel.class);
+        SharedPref sp = new SharedPref(getActivity());
+        String language = sp.loadLanguage();
+        viewModel = ViewModelProviders.of(this).get(MovieTVViewModel.class);
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.rv_movie);
@@ -55,7 +65,7 @@ public class MovieFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
-        viewModel.getMovieLists().observe(this, new Observer<List<Movie>>() {
+        viewModel.getMovieLists(language).observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
                 System.out.println(movies.get(0).getTitle());
@@ -66,7 +76,6 @@ public class MovieFragment extends Fragment {
     }
 
 
-
     private void prepareStringArray(){
         dataTitle = getResources().getStringArray(R.array.data_title);
         dataOverview = getResources().getStringArray(R.array.data_ov);
@@ -75,4 +84,17 @@ public class MovieFragment extends Fragment {
         dataYear = getResources().getStringArray(R.array.data_year);
         dataRating = getResources().getStringArray(R.array.data_rating);
     }
+
+    public void onRefresh(String language) {
+        viewModel.getMovieLists(language).observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(@Nullable List<Movie> movies) {
+                System.out.println(movies.get(0).getTitle());
+                adapter.setListMovie(movies);
+                Log.e(TAG, "OnRefresh MOooooooooooo");
+            }
+        });
+        Log.e(TAG, "OnRefresh MOoooooooooooVIIIIIIIIIIIe");
+    }
+
 }

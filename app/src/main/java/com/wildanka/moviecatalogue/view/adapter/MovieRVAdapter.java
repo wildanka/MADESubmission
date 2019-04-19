@@ -69,7 +69,6 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
         }else {
             return listMovie.size();
         }
-//        return (listMovie.isEmpty()) ? 0 : listMovie.size();
     }
 
     class MovieRVViewHolder extends RecyclerView.ViewHolder {

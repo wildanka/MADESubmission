@@ -14,24 +14,25 @@ public class MovieTVViewModel extends ViewModel {
     private MutableLiveData<List<Movie>> movieLists;
     private MutableLiveData<List<TvShow>> tvLists;
 
-    public LiveData<List<Movie>> getMovieLists() {
+    public LiveData<List<Movie>> getMovieLists(String language) {
         if (movieLists == null) {
-            loadMovieLists();
+            loadMovieLists(language);
         }
         return movieLists;
     }
 
-    private void loadMovieLists(){
-        movieLists = MovieRepo.getInstance().getMovieList();
+    private void loadMovieLists(String language){
+        movieLists = MovieRepo.getInstance().getMovieList(language);
     }
-    public LiveData<List<TvShow>> getTVLists() {
+
+    public LiveData<List<TvShow>> getTVLists(String language) {
         if (movieLists == null) {
-            loadTVLists();
+            loadTVLists(language);
         }
         return tvLists;
     }
 
-    private void loadTVLists(){
-        tvLists = MovieRepo.getInstance().getTVList();
+    private void loadTVLists(String language){
+        tvLists = MovieRepo.getInstance().getTVList(language);
     }
 }

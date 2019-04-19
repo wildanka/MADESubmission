@@ -29,7 +29,6 @@ public class TvShowRVAdapter extends RecyclerView.Adapter<TvShowRVAdapter.MovieR
         notifyDataSetChanged();
     }
 
-    //todo create tvShow adapter
     //inject the context here from the constructor
     public TvShowRVAdapter(Context mContext) {
         this.mContext = mContext;
@@ -70,7 +69,6 @@ public class TvShowRVAdapter extends RecyclerView.Adapter<TvShowRVAdapter.MovieR
         }else {
             return listMovie.size();
         }
-//        return (listMovie.isEmpty()) ? 0 : listMovie.size();
     }
 
     class MovieRVViewHolder extends RecyclerView.ViewHolder {
@@ -99,7 +97,7 @@ public class TvShowRVAdapter extends RecyclerView.Adapter<TvShowRVAdapter.MovieR
             tvReleaseDate.setText(tvShow.getDateYear());
             String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+tvShow.getPosterPath();
             Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
-            Log.e(TAG, "bind: https://image.tmdb.org/t/p/w185/"+tvShow.getPosterPath());
+//            Log.e(TAG, "bind: https://image.tmdb.org/t/p/w185/"+tvShow.getPosterPath());
 //            ivMoviePoster.setImageDrawable(mContext.getDrawable(movie.getIvPoster()));
         }
     }
