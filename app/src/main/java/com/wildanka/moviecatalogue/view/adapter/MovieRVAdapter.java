@@ -1,6 +1,7 @@
 package com.wildanka.moviecatalogue.view.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.entity.Movie;
+import com.wildanka.moviecatalogue.view.MovieDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,18 +50,6 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
     public void onBindViewHolder(@NonNull MovieRVViewHolder holder, int i) {
         final Movie selectedMovie = listMovie.get(i);
         holder.bind(selectedMovie);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent detailIntent = new Intent(mContext, MovieDetailActivity.class);
-//                detailIntent.putExtra("selectedMovie", selectedMovie);
-                System.out.println(selectedMovie.getTitle());
-                Toast.makeText(mContext, selectedMovie.getTitle(), Toast.LENGTH_SHORT).show();
-//                mContext.startActivity(detailIntent);
-            }
-        });
-
     }
 
     @Override
@@ -82,7 +72,7 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
             tvReleaseDate = (TextView) itemView.findViewById(R.id.tv_item_release_date);
             ivMoviePoster = (ImageView) itemView.findViewById(R.id.iv_item_movie_poster);
         }
-        void bind(Movie movie){
+        void bind(final Movie movie){
             if (Double.parseDouble(movie.getRating()) < 6.0){
                 tvRating.setTextColor(ContextCompat.getColor(mContext,R.color.colorRed));
             }else if(Double.parseDouble(movie.getRating()) < 7.0){
@@ -95,10 +85,25 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
             tvMovieTitle.setText(movie.getTitle());
             tvShortDesc.setText(movie.getOverview());
             tvReleaseDate.setText(movie.getDateYear());
-            String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
+            final String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
             Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
             Log.e(TAG, "bind: https://image.tmdb.org/t/p/w185/"+movie.getPosterPath());
-//            ivMoviePoster.setImageDrawable(mContext.getDrawable(movie.getIvPoster()));
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent detailIntent = new Intent(mContext, MovieDetailActivity.class);
+
+                    detailIntent.putExtra("movieId", movie.getIdMovie());
+                    detailIntent.putExtra("movieTitle", movie.getTitle());
+                    detailIntent.putExtra("moviePosterUri", MOVIE_POSTER_URI);
+                    detailIntent.putExtra("movieOverview", movie.getOverview());
+                    detailIntent.putExtra("movieRating", movie.getRating());
+                    detailIntent.putExtra("movieReleaseDate", movie.getDateYear());
+                    Toast.makeText(mContext, movie.getTitle(), Toast.LENGTH_SHORT).show();
+                mContext.startActivity(detailIntent);
+                }
+            });
         }
     }
 }

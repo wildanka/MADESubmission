@@ -21,7 +21,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_detail);
 
         //receive the intent extras
-        Movie movie = getIntent().getParcelableExtra("selectedMovie");
+        String movieID = getIntent().getStringExtra("movieId");
+        String movieTitle = getIntent().getStringExtra("movieTitle");
+        String MOVIE_POSTER_URI = getIntent().getStringExtra("moviePosterUri");
+        String movieOverview = getIntent().getStringExtra("movieOverview");
+        String movieRating = getIntent().getStringExtra("movieRating");
+        String movieReleaseDate = getIntent().getStringExtra("movieReleaseDate");
 
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_movie_activity_detail);
@@ -36,19 +41,19 @@ public class MovieDetailActivity extends AppCompatActivity {
         ivMoviePoster = findViewById(R.id.iv_movie_poster_detail);
 
         //let's color our life :)
-        if (Integer.parseInt(movie.getRating()) < 60){
+        if (Double.parseDouble(movieRating)*10 < 60){
             tvRating.setTextColor(ContextCompat.getColor(this,R.color.colorRed));
-        }else if(Integer.parseInt(movie.getRating()) < 70){
+        }else if(Double.parseDouble(movieRating)*10 < 70){
             tvRating.setTextColor(ContextCompat.getColor(this,R.color.colorYellow));
         }else{
             tvRating.setTextColor(ContextCompat.getColor(this,R.color.colorGreen));
         }
-        tvMovieTitle.setText(movie.getTitle());
-        tvRating.setText(MovieDetailActivity.this.getString(R.string.rating_in_percent,movie.getRating()));
-        tvReleaseDate.setText(movie.getDateYear());
-        tvOverview.setText(movie.getOverview());
-        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
+
+        tvMovieTitle.setText(movieTitle);
+        tvRating.setText(MovieDetailActivity.this.getString(R.string.rating_in_percent,movieRating));
+        tvReleaseDate.setText(movieReleaseDate);
+        tvOverview.setText(movieOverview);
+//        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
         Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
-//        ivMoviePoster.setImageDrawable(getResources().getDrawable(movie.getIvPoster()));
     }
 }

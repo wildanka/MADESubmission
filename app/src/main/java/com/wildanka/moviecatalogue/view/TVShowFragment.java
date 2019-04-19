@@ -91,7 +91,7 @@ public class TVShowFragment extends Fragment {
     }
 
     public void onRefresh(String language){
-        viewModel.getTVLists(language).observe(this, new Observer<List<TvShow>>() {
+        viewModel.forceGetTVLists(language).observe(this, new Observer<List<TvShow>>() {
             @Override
             public void onChanged(@Nullable List<TvShow> tvShows) {
                 if (tvShows == null) {

@@ -86,7 +86,7 @@ public class MovieFragment extends Fragment {
     }
 
     public void onRefresh(String language) {
-        viewModel.getMovieLists(language).observe(this, new Observer<List<Movie>>() {
+        viewModel.forceGetMovieLists(language).observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
                 if (movies == null) {
