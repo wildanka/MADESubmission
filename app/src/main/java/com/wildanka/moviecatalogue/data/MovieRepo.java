@@ -1,6 +1,6 @@
 package com.wildanka.moviecatalogue.data;
 
-import android.arch.lifecycle.MutableLiveData;
+import androidx.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.wildanka.moviecatalogue.model.entity.Movie;

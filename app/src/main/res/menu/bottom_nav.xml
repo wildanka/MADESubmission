@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/fragmentMovieMenu"
+        android:title="@string/movies"
+        android:icon = "@drawable/ic_local_movies_black_24dp"/>
+    <item android:id="@+id/fragmentTVShowsMenu"
+        android:title="@string/tv_shows"
+        android:icon = "@drawable/ic_live_tv_black_24dp"/>
+    <item android:id="@+id/fragmentFavoritesMenu"
+        android:title="@string/favorites"
+        android:icon = "@drawable/ic_favorite_black_24dp"/>
+
+</menu>

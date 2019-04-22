@@ -1,35 +1,61 @@
 package com.wildanka.moviecatalogue;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.wildanka.moviecatalogue.databinding.ActivityMainBinding;
 import com.wildanka.moviecatalogue.util.SharedPref;
 import com.wildanka.moviecatalogue.view.ChangeLanguageDialog;
+import com.wildanka.moviecatalogue.view.FavoritesFragment;
 import com.wildanka.moviecatalogue.view.MovieFragment;
 import com.wildanka.moviecatalogue.view.TVShowFragment;
 import com.wildanka.moviecatalogue.view.adapter.MoviesVPAdapter;
 import com.wildanka.moviecatalogue.viewmodel.MovieTVViewModel;
 
-import java.util.ArrayList;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class MainActivity extends AppCompatActivity implements ChangeLanguageDialog.OnChangeLanguageListener {
+    private static final String TAG = "MainActivity";
+    private ActivityMainBinding binding;
     private MoviesVPAdapter tabAdapter;
     private TabLayout tlMoviesCategory;
     private ViewPager vpMoviesCategory;
     private String language;
     private MovieTVViewModel viewModel;
+    private Fragment selectedFragment;
 
+    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.fragmentMovieMenu:
+                    selectedFragment = new MovieFragment();
+                    break;
+                case R.id.fragmentTVShowsMenu:
+                    selectedFragment = new TVShowFragment();
+                    break;
+                case R.id.fragmentFavoritesMenu:
+                    selectedFragment = new FavoritesFragment();
+                    break;
+            }
+
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, selectedFragment)
+                    .commit();
+            return true;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,27 +64,18 @@ public class MainActivity extends AppCompatActivity implements ChangeLanguageDia
         Log.d(TAG, "onCreateView: " + language);
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        viewModel = ViewModelProviders.of(this).get(MovieTVViewModel.class);
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
+        binding.bottomNavView.setOnNavigationItemSelectedListener(navListener);
 
         //Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_main_activity);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_main_activity);
+        setSupportActionBar(binding.tbMainActivity);
         //binding view
-        tlMoviesCategory = (TabLayout) findViewById(R.id.tl_movies_category);
-        vpMoviesCategory = (ViewPager) findViewById(R.id.vp_movies_category);
+//        tlMoviesCategory = (TabLayout) findViewById(R.id.tl_movies_category);
+//        vpMoviesCategory = (ViewPager) findViewById(R.id.vp_movies_category);
 
 
-        //tabs arrayList
-        ArrayList<String> tabs = new ArrayList<>();
-        tabs.add("Movies");
-        tabs.add("TV Shows");
-
-        tabAdapter = new MoviesVPAdapter(getSupportFragmentManager(), tabs);
-        vpMoviesCategory.setAdapter(tabAdapter);
-        tlMoviesCategory.setupWithViewPager(vpMoviesCategory);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements ChangeLanguageDia
                 System.out.println("clicked menu");
                 ChangeLanguageDialog dialog = new ChangeLanguageDialog();
                 dialog.show(getSupportFragmentManager(), "changeLanguage");
+
 //                Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
 //                startActivity(mIntent);
                 break;
