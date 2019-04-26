@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.entity.TvShow;
-import com.wildanka.moviecatalogue.view.MovieDetailActivity;
+import com.wildanka.moviecatalogue.MovieDetailActivity;
 
 import java.util.List;
 

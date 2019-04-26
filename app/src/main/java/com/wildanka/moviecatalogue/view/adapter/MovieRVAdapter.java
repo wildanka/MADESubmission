@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.entity.Movie;
-import com.wildanka.moviecatalogue.view.MovieDetailActivity;
+import com.wildanka.moviecatalogue.MovieDetailActivity;
 
 import java.util.List;
 
@@ -94,11 +94,15 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
                     Intent detailIntent = new Intent(mContext, MovieDetailActivity.class);
 
                     detailIntent.putExtra("movieId", movie.getIdMovie());
+                    detailIntent.putExtra("movieVoteCount", movie.getVoteCount());
                     detailIntent.putExtra("movieTitle", movie.getTitle());
-                    detailIntent.putExtra("moviePosterUri", MOVIE_POSTER_URI);
-                    detailIntent.putExtra("movieOverview", movie.getOverview());
-                    detailIntent.putExtra("movieRating", movie.getRating());
                     detailIntent.putExtra("movieReleaseDate", movie.getDateYear());
+                    detailIntent.putExtra("movieRating", movie.getRating());
+                    detailIntent.putExtra("movieOverview", movie.getOverview());
+                    detailIntent.putExtra("moviePosterUri", MOVIE_POSTER_URI);
+                    detailIntent.putExtra("movieOriginalLanguage", movie.getOriginalLanguage());
+                    detailIntent.putExtra("moviePopularity", movie.getPopularity());
+                    detailIntent.putExtra("movieIsAdult", movie.isAdult());
                     Toast.makeText(mContext, movie.getTitle(), Toast.LENGTH_SHORT).show();
                 mContext.startActivity(detailIntent);
                 }

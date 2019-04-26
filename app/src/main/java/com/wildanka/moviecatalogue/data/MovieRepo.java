@@ -1,8 +1,10 @@
 package com.wildanka.moviecatalogue.data;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import android.util.Log;
 
+import com.wildanka.moviecatalogue.db.MoviesDAO;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.MovieFeeds;
 import com.wildanka.moviecatalogue.model.entity.TvShow;
@@ -20,6 +22,11 @@ import static com.wildanka.moviecatalogue.BuildConfig.API_V3_KEY;
 
 public class MovieRepo {
     private static final String TAG = "MovieRepo";
+
+    private MoviesDAO moviesDAO;
+    private LiveData<List<Movie>> favoritesMovies;
+
+
     private static class SingletonHelper {
         private static final MovieRepo INSTANCE = new MovieRepo();
     }
@@ -79,4 +86,6 @@ public class MovieRepo {
         });
         return data;
     }
+
+
 }

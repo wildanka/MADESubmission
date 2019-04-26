@@ -2,8 +2,14 @@ package com.wildanka.moviecatalogue.model.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Movie {
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "movies")
+public class Movie {
+    @PrimaryKey
+    @NonNull
     @SerializedName("id")
     private String idMovie;
     @SerializedName("vote_count")

@@ -1,7 +1,6 @@
 package com.wildanka.moviecatalogue.view;
 
 import android.content.Context;
-import androidx.databinding.DataBindingUtil;
 import android.graphics.Point;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -14,13 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.RadioGroup;
 
 import com.wildanka.moviecatalogue.R;
-import com.wildanka.moviecatalogue.databinding.DialogMenuChangeLanguageBinding;
+//import com.wildanka.moviecatalogue.databinding.DialogMenuChangeLanguageBinding;
 import com.wildanka.moviecatalogue.util.SharedPref;
 
 public class ChangeLanguageDialog extends DialogFragment {
-    private DialogMenuChangeLanguageBinding binding;
+//    private DialogMenuChangeLanguageBinding binding;
     private static final String TAG = "ChangeLanguageDialog";
     private SharedPref sp;
     public interface OnChangeLanguageListener{
@@ -35,22 +36,23 @@ public class ChangeLanguageDialog extends DialogFragment {
         String language = sp.loadLanguage();
 
         Log.e(TAG, "onCreateView : " + language);
-        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_menu_change_language, container, false);
-
+        View rootView = inflater.inflate(R.layout.dialog_menu_change_language, container, false);
+        final RadioGroup rgLanguage = rootView.findViewById(R.id.rg_language);
+        Button btnSaveChanges = rootView.findViewById(R.id.btn_save_changes);
         switch (language) {
             case "en-US":
-                binding.rgLanguage.check(R.id.rb_english_us);
+                rgLanguage.check(R.id.rb_english_us);
                 break;
             case "id-ID":
-                binding.rgLanguage.check(R.id.rb_indonesian_id);
+                rgLanguage.check(R.id.rb_indonesian_id);
                 break;
         }
 
-        binding.btnSaveChanges.setOnClickListener(new View.OnClickListener() {
+        btnSaveChanges.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //save to the sharedpref
-                switch (binding.rgLanguage.getCheckedRadioButtonId()) {
+                switch (rgLanguage.getCheckedRadioButtonId()) {
                     case R.id.rb_english_us:
                         Log.e(TAG, "onClick: to English");
                         sp.setLanguage("en-US");
@@ -66,7 +68,7 @@ public class ChangeLanguageDialog extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-        return binding.getRoot();
+        return rootView;
     }
 
     @Override
