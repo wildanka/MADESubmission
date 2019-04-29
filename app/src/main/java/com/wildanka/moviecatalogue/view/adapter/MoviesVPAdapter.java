@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
+import com.wildanka.moviecatalogue.view.FavoriteTVShowFragment;
+import com.wildanka.moviecatalogue.view.FavoritesMoviesFragment;
 import com.wildanka.moviecatalogue.view.MovieFragment;
 import com.wildanka.moviecatalogue.view.TVShowFragment;
 
@@ -18,7 +20,6 @@ public class MoviesVPAdapter extends FragmentStatePagerAdapter {
     private final SparseArray<WeakReference<Fragment>> instantiatedFragment = new SparseArray<>();
     private ArrayList<String> mTabHeader;
 
-
     public MoviesVPAdapter(FragmentManager fm, ArrayList<String> mTabHeader) {
         super(fm);
         this.mTabHeader = mTabHeader;
@@ -28,10 +29,10 @@ public class MoviesVPAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                MovieFragment movieFragment = new MovieFragment();
+                FavoritesMoviesFragment movieFragment = new FavoritesMoviesFragment();
                 return movieFragment;
             case 1:
-                TVShowFragment tvShowFragment = new TVShowFragment();
+                FavoriteTVShowFragment tvShowFragment = new FavoriteTVShowFragment();
                 return tvShowFragment;
             default:
                 return null;
@@ -72,5 +73,4 @@ public class MoviesVPAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         return mTabHeader.get(position);
     }
-
 }

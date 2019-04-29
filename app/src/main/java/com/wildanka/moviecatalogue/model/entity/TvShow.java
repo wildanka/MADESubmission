@@ -2,10 +2,16 @@ package com.wildanka.moviecatalogue.model.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-public class TvShow {
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "tv_shows")
+public class TvShow {
+    @PrimaryKey
+    @NonNull
     @SerializedName("id")
-    private String idMovie;
+    private String idTVShow;
     @SerializedName("vote_count")
     private String voteCount;
     @SerializedName("original_name")
@@ -30,7 +36,7 @@ public class TvShow {
     private String popularity;
 
     public TvShow(String idMovie, String voteCount, String originalName, String title, String dateYear, String rating, String overview, String posterPath, String originalLanguage, String popularity) {
-        this.idMovie = idMovie;
+        this.idTVShow = idMovie;
         this.voteCount = voteCount;
         this.originalName = originalName;
         this.title = title;
@@ -43,8 +49,8 @@ public class TvShow {
     }
 
 
-    public String getIdMovie() {
-        return idMovie;
+    public String getIdTVShow() {
+        return idTVShow;
     }
 
     public String getVoteCount() {
@@ -83,10 +89,50 @@ public class TvShow {
         return popularity;
     }
 
+    public void setIdTVShow(@NonNull String idTVShow) {
+        this.idTVShow = idTVShow;
+    }
+
+    public void setVoteCount(String voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public void setOriginalName(String originalName) {
+        this.originalName = originalName;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDateYear(String dateYear) {
+        this.dateYear = dateYear;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
+    }
+
+    public void setPopularity(String popularity) {
+        this.popularity = popularity;
+    }
+
     @Override
     public String toString() {
         return "TvShow{" +
-                "idMovie='" + idMovie + '\'' +
+                "idTVShow='" + idTVShow + '\'' +
                 ", voteCount='" + voteCount + '\'' +
                 ", originalName='" + originalName + '\'' +
                 ", title='" + title + '\'' +

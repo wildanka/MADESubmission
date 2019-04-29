@@ -93,7 +93,7 @@ public class TvShowRVAdapter extends RecyclerView.Adapter<TvShowRVAdapter.MovieR
                 public void onClick(View v) {
                     Intent detailIntent = new Intent(mContext, MovieDetailActivity.class);
 
-                    detailIntent.putExtra("movieId", tvShow.getIdMovie());
+                    detailIntent.putExtra("movieId", tvShow.getIdTVShow());
                     detailIntent.putExtra("movieTitle", tvShow.getTitle());
                     detailIntent.putExtra("moviePosterUri", MOVIE_POSTER_URI);
                     detailIntent.putExtra("movieOverview", tvShow.getOverview());

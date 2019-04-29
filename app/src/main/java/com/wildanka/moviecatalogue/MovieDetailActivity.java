@@ -1,6 +1,7 @@
 package com.wildanka.moviecatalogue;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -9,15 +10,20 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.model.entity.Movie;
+import com.wildanka.moviecatalogue.viewmodel.FavoritesMovieTVViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 
 public class MovieDetailActivity extends AppCompatActivity {
     private TextView tvMovieTitle, tvRating, tvReleaseDate, tvOverview;
     private ImageView ivMoviePoster;
+    private Boolean isFavorites = false;
+    private static final String TAG = "MovieDetailActivity";
     private String movieID;
     private String movieTitle;
     private String MOVIE_POSTER_URI;
@@ -27,11 +33,13 @@ public class MovieDetailActivity extends AppCompatActivity {
     private String movieOriginalLanguage;
     private String moviePopularity;
     private Boolean movieIsAdult;
+    private FavoritesMovieTVViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
+        viewModel = ViewModelProviders.of(this).get(FavoritesMovieTVViewModel.class);
 //        movieRoomDatabase = Room.databaseBuilder(this, MovieRoomDatabase.class,"favoritesMovieDB").build();
         //receive the intent extras
         movieID = getIntent().getStringExtra("movieId");
@@ -72,14 +80,33 @@ public class MovieDetailActivity extends AppCompatActivity {
         tvOverview.setText(movieOverview);
 //        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
         Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
+
+        viewModel.checkFavorites(movieID).observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if (aBoolean){
+                    Log.d(TAG, "onChanged: "+movieID+" is a favorite");
+                    isFavorites = true;
+                }else{
+                    Log.d(TAG, "onChanged: "+movieID+" not a favorite");
+                    isFavorites = false;
+                }
+            }
+        });
     }
 
     private void addToFavorites(){
         //Construct the Movie Object
         Movie movie = new Movie(movieID,movieRating, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity, movieIsAdult);
-
-//        MovieDetailActivity.movieRoomDatabase.moviesDAO().insertMovies(movie);
+        viewModel.insertData(movie);
     }
+
+
+    private void removeFromFavorites(){
+        Movie movie = new Movie(movieID,movieRating, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity, movieIsAdult);
+        viewModel.removeData(movie);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -91,7 +118,11 @@ public class MovieDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_bahasa:
-                addToFavorites();
+                if (isFavorites){
+                    removeFromFavorites();
+                }else{
+                    addToFavorites();
+                }
                 Toast.makeText(MovieDetailActivity.this, movieTitle+" added to Favorites",Toast.LENGTH_SHORT).show();
                 System.out.println("clicked menu");
                 break;
