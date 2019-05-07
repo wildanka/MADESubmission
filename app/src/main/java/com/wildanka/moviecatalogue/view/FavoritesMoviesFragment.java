@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.util.SharedPref;
+import com.wildanka.moviecatalogue.view.adapter.FavoritesMovieRVAdapter;
 import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter;
 import com.wildanka.moviecatalogue.viewmodel.FavoritesMovieTVViewModel;
 import com.wildanka.moviecatalogue.viewmodel.MovieTVViewModel;
@@ -35,7 +36,7 @@ public class FavoritesMoviesFragment extends Fragment {
     private String[] dataYear;
     private String[] dataRating;
     private TypedArray dataPoster;
-    private MovieRVAdapter adapter;
+    private FavoritesMovieRVAdapter adapter;
     private FavoritesMovieTVViewModel viewModel;
     private ProgressBar loadingBar;
     private static final String TAG = "MovieFragment";
@@ -63,7 +64,7 @@ public class FavoritesMoviesFragment extends Fragment {
         //initialize the data
         prepareStringArray();
 
-        adapter = new MovieRVAdapter(getActivity());
+        adapter = new FavoritesMovieRVAdapter(getActivity());
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);

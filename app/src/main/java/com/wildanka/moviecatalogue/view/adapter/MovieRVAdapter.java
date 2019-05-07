@@ -84,7 +84,7 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
             tvMovieTitle.setText(movie.getTitle());
             tvShortDesc.setText(movie.getOverview());
             tvReleaseDate.setText(movie.getDateYear());
-            final String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
+            final String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185"+movie.getPosterPath();
             Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
             Log.e(TAG, "bind: https://image.tmdb.org/t/p/w185/"+movie.getPosterPath());
 

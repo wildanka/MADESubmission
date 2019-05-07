@@ -1,10 +1,8 @@
 package com.wildanka.moviecatalogue.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.wildanka.moviecatalogue.data.MovieRepo;
-import com.wildanka.moviecatalogue.db.FavoritesMovieRoomDatabase;
 import com.wildanka.moviecatalogue.db.FavoritesRepository;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.TvShow;
@@ -14,10 +12,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
-public class FavoritesMovieTVViewModel extends AndroidViewModel {
+public class FavoritesTVShowViewModel extends AndroidViewModel {
     private static final String TAG = "FavoritesMovieTVViewMod";
     //instance the repository
     private FavoritesRepository repository;
@@ -25,7 +21,7 @@ public class FavoritesMovieTVViewModel extends AndroidViewModel {
     private LiveData<List<TvShow>> tvLists;
     private LiveData<Movie> movieLiveData;
 
-    public FavoritesMovieTVViewModel(@NonNull Application application) {
+    public FavoritesTVShowViewModel(@NonNull Application application) {
         super(application);
         repository = new FavoritesRepository(application);
     }

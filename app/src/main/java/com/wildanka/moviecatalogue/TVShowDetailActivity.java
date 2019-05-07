@@ -19,7 +19,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 
-public class MovieDetailActivity extends AppCompatActivity {
+public class TVShowDetailActivity extends AppCompatActivity {
     private TextView tvMovieTitle, tvRating, tvReleaseDate, tvOverview;
     private ImageView ivMoviePoster;
     private Boolean isFavorites = false;
@@ -76,7 +76,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
 
         tvMovieTitle.setText(movieTitle);
-        tvRating.setText(MovieDetailActivity.this.getString(R.string.rating_in_percent,movieRating));
+        tvRating.setText(TVShowDetailActivity.this.getString(R.string.rating_in_percent,movieRating));
         tvReleaseDate.setText(movieReleaseDate);
         tvOverview.setText(movieOverview);
 //        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
@@ -136,11 +136,11 @@ public class MovieDetailActivity extends AppCompatActivity {
                 if (isFavorites){
                     removeFromFavorites();
                     setFavorite();
-                    Toast.makeText(MovieDetailActivity.this, movieTitle+" removed from Favorites",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TVShowDetailActivity.this, movieTitle+" removed from Favorites",Toast.LENGTH_SHORT).show();
                 }else{
                     addToFavorites();
                     setFavorite();
-                    Toast.makeText(MovieDetailActivity.this, movieTitle+" added to Favorites",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TVShowDetailActivity.this, movieTitle+" added to Favorites",Toast.LENGTH_SHORT).show();
                 }
                 System.out.println("clicked menu");
                 break;

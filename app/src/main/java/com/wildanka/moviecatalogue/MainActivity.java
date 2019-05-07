@@ -60,6 +60,12 @@ public class MainActivity extends AppCompatActivity implements ChangeLanguageDia
         BottomNavigationView bottomNavView = (BottomNavigationView) findViewById(R.id.bottom_nav_view);
         bottomNavView.setOnNavigationItemSelectedListener(navListener);
 
+        selectedFragment = new MovieFragment();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, selectedFragment)
+                .commit();
         //Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_main_activity);
         setSupportActionBar(toolbar);

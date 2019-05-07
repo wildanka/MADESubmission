@@ -17,22 +17,26 @@ public interface MoviesDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMovie(Movie movieInsertion);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertTVShow(TvShow tvShowDeletion);
+
     @Delete
     void removeMovieFromFavorites(Movie movieDeletions);
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    void insertTVShow(TvShow tvShow);
-//
-//    @Delete
-//    void removeTVShowFromFavorites(TvShow tvShowDeletion);
+    @Delete
+    void removeTVShowFromFavorites(TvShow tvShowDeletion);
 
     @Query("SELECT * FROM movies")
     LiveData<List<Movie>> selectFavoritesMovies();
 
-    @Query("SELECT count(*) FROM movies WHERE idMovie LIKE :idMovie")
-    LiveData<Integer> checkFavorites(String idMovie);
+    @Query("SELECT * FROM movies")
+    LiveData<List<TvShow>> selectFavoritesTVShow();
+
+    @Query("SELECT * FROM movies WHERE idMovie LIKE :idMovie LIMIT 1")
+    LiveData<Movie> checkFavoriteMovies(String idMovie);
+
+    @Query("SELECT * FROM tv_shows WHERE idTVShow LIKE :idTVShow LIMIT 1")
+    LiveData<TvShow> checkFavoriteTVShow(String idTVShow);
 
 
-//    @Query("SELECT * FROM tvShows")
-//    LiveData<List<TvShow>> favoritesTVShow();
 }

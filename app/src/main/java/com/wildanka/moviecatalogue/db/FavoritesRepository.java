@@ -5,27 +5,29 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.wildanka.moviecatalogue.model.entity.Movie;
+import com.wildanka.moviecatalogue.model.entity.TvShow;
 
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.room.Room;
 
 public class FavoritesRepository {
     private static final String TAG = "FavoritesRepository";
     private static final String DB_NAME = "db_favorites_movie";
     private MoviesDAO mMoviesDAO;
-    private LiveData<List<Movie>> mUserInboxLiveData;
+    private LiveData<List<Movie>> favoritesMovieLists;
+    private LiveData<Movie> mMovieList;
+    private LiveData<TvShow> mTvShowList;
 
     public FavoritesRepository(Application application) {
-        FavoritesMovieRoomDatabase mFavoritesMovieRoomDatabase = Room.databaseBuilder(application, FavoritesMovieRoomDatabase.class, DB_NAME).build();
-        this.mMoviesDAO = mFavoritesMovieRoomDatabase.moviesDAO();
+        FavoritesMovieRoomDatabase database = FavoritesMovieRoomDatabase.getInstance(application);
+        this.mMoviesDAO = database.moviesDAO();
         //call SQLite DB getter
-        this.mUserInboxLiveData = mMoviesDAO.selectFavoritesMovies();
+        this.favoritesMovieLists = mMoviesDAO.selectFavoritesMovies();
     }
 
-
+    //region movie
     public void insertMovieDB(Movie movie) {
         new insertMovieData(mMoviesDAO).execute(movie);
         Log.e(TAG, "movie data: " + movie.getIdMovie() + " Inserted");
@@ -40,20 +42,18 @@ public class FavoritesRepository {
         return mMoviesDAO.selectFavoritesMovies();
     }
 
-    public LiveData<Boolean> checkMovieFavorites(String idMovie) {
+    public LiveData<Movie> checkFavoritesElseFetch(String idMovie) {
         final MutableLiveData<Boolean> isFavorites = new MutableLiveData<>();
-        final LiveData<Integer> resCount = mMoviesDAO.checkFavorites(idMovie);
+        final LiveData<Movie> resMovieData = mMoviesDAO.checkFavoriteMovies(idMovie);
+        this.mMovieList = mMoviesDAO.checkFavoriteMovies(idMovie);
 
-        Log.e(TAG, "checkMovieFavorites: "+resCount.getValue());
-        if (resCount.getValue() == 1) {
-            isFavorites.setValue(true);
+        if (resMovieData != null) {
+            Log.e(TAG, "favorite movies: " + resMovieData.getValue());
         } else {
-            isFavorites.setValue(false);
+            Log.e(TAG, "movie is not a favorite: " + resMovieData.getValue());
         }
-
-        return isFavorites;
+        return resMovieData;
     }
-
 
     private static class insertMovieData extends AsyncTask<Movie, Void, Void> {
         private MoviesDAO moviesDAOAsyncTask;
@@ -82,5 +82,7 @@ public class FavoritesRepository {
             return null;
         }
     }
+    //endregion movie
+
 
 }

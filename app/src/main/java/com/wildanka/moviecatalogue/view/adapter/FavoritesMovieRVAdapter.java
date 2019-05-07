@@ -2,9 +2,7 @@ package com.wildanka.moviecatalogue.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,25 +11,28 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.wildanka.moviecatalogue.R;
-import com.wildanka.moviecatalogue.TVShowDetailActivity;
-import com.wildanka.moviecatalogue.model.entity.TvShow;
 import com.wildanka.moviecatalogue.MovieDetailActivity;
+import com.wildanka.moviecatalogue.R;
+import com.wildanka.moviecatalogue.model.entity.Movie;
 
 import java.util.List;
 
-public class TvShowRVAdapter extends RecyclerView.Adapter<TvShowRVAdapter.MovieRVViewHolder> {
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
+public class FavoritesMovieRVAdapter extends RecyclerView.Adapter<FavoritesMovieRVAdapter.MovieRVViewHolder> {
     private static final String TAG = "MovieRVAdapter";
     private Context mContext;
-    private List<TvShow> listMovie;
+    private List<Movie> listMovie;
 
-    public void setListMovie(List<TvShow> listMovie) {
+    public void setListMovie(List<Movie> listMovie) {
         this.listMovie = listMovie;
         notifyDataSetChanged();
     }
 
     //inject the context here from the constructor
-    public TvShowRVAdapter(Context mContext) {
+    public FavoritesMovieRVAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -47,9 +48,8 @@ public class TvShowRVAdapter extends RecyclerView.Adapter<TvShowRVAdapter.MovieR
 
     @Override
     public void onBindViewHolder(@NonNull MovieRVViewHolder holder, int i) {
-        final TvShow selectedMovie = listMovie.get(i);
+        final Movie selectedMovie = listMovie.get(i);
         holder.bind(selectedMovie);
-
     }
 
     @Override
@@ -72,36 +72,40 @@ public class TvShowRVAdapter extends RecyclerView.Adapter<TvShowRVAdapter.MovieR
             tvReleaseDate = (TextView) itemView.findViewById(R.id.tv_item_release_date);
             ivMoviePoster = (ImageView) itemView.findViewById(R.id.iv_item_movie_poster);
         }
-
-        void bind(final TvShow tvShow) {
-            if (Double.parseDouble(tvShow.getRating()) < 6.0){
+        void bind(final Movie movie){
+            if (Double.parseDouble(movie.getRating()) < 6.0){
                 tvRating.setTextColor(ContextCompat.getColor(mContext,R.color.colorRed));
-            }else if(Double.parseDouble(tvShow.getRating()) < 7.0){
+            }else if(Double.parseDouble(movie.getRating()) < 7.0){
                 tvRating.setTextColor(ContextCompat.getColor(mContext,R.color.colorYellow));
             }else{
                 tvRating.setTextColor(ContextCompat.getColor(mContext,R.color.colorGreen));
             }
 
-            tvRating.setText(mContext.getString(R.string.rating_in_percent,tvShow.getRating()));
-            tvMovieTitle.setText(tvShow.getTitle());
-            tvShortDesc.setText(tvShow.getOverview());
-            tvReleaseDate.setText(tvShow.getDateYear());
-            final String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+tvShow.getPosterPath();
+            tvRating.setText(mContext.getString(R.string.rating_in_percent,movie.getRating()));
+            tvMovieTitle.setText(movie.getTitle());
+            tvShortDesc.setText(movie.getOverview());
+            tvReleaseDate.setText(movie.getDateYear());
+            final String MOVIE_POSTER_URI = movie.getPosterPath();
             Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
+            Log.e(TAG, movie.getPosterPath());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent detailIntent = new Intent(mContext, TVShowDetailActivity.class);
+                    Intent detailIntent = new Intent(mContext, MovieDetailActivity.class);
 
-                    detailIntent.putExtra("movieId", tvShow.getIdTVShow());
-                    detailIntent.putExtra("movieTitle", tvShow.getTitle());
+                    detailIntent.putExtra("movieId", movie.getIdMovie());
+                    detailIntent.putExtra("movieVoteCount", movie.getVoteCount());
+                    detailIntent.putExtra("movieTitle", movie.getTitle());
+                    detailIntent.putExtra("movieReleaseDate", movie.getDateYear());
+                    detailIntent.putExtra("movieRating", movie.getRating());
+                    detailIntent.putExtra("movieOverview", movie.getOverview());
                     detailIntent.putExtra("moviePosterUri", MOVIE_POSTER_URI);
-                    detailIntent.putExtra("movieOverview", tvShow.getOverview());
-                    detailIntent.putExtra("movieRating", tvShow.getRating());
-                    detailIntent.putExtra("movieReleaseDate", tvShow.getDateYear());
-                    Toast.makeText(mContext, tvShow.getTitle(), Toast.LENGTH_SHORT).show();
-                    mContext.startActivity(detailIntent);
+                    detailIntent.putExtra("movieOriginalLanguage", movie.getOriginalLanguage());
+                    detailIntent.putExtra("moviePopularity", movie.getPopularity());
+                    detailIntent.putExtra("movieIsAdult", movie.isAdult());
+                    Toast.makeText(mContext, movie.getTitle(), Toast.LENGTH_SHORT).show();
+                mContext.startActivity(detailIntent);
                 }
             });
         }
