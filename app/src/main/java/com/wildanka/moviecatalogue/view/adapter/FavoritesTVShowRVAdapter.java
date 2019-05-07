@@ -11,9 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-import com.wildanka.moviecatalogue.MovieDetailActivity;
 import com.wildanka.moviecatalogue.R;
-import com.wildanka.moviecatalogue.model.entity.Movie;
+import com.wildanka.moviecatalogue.TVShowDetailActivity;
 import com.wildanka.moviecatalogue.model.entity.TvShow;
 
 import java.util.List;
@@ -93,7 +92,7 @@ public class FavoritesTVShowRVAdapter extends RecyclerView.Adapter<FavoritesTVSh
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent detailIntent = new Intent(mContext, MovieDetailActivity.class);
+                    Intent detailIntent = new Intent(mContext, TVShowDetailActivity.class);
 
                     detailIntent.putExtra("movieId", tvShow.getIdTVShow());
                     detailIntent.putExtra("movieVoteCount", tvShow.getVoteCount());

@@ -1,21 +1,19 @@
 package com.wildanka.moviecatalogue.view.adapter;
 
+import android.util.SparseArray;
+import android.view.ViewGroup;
+
+import com.wildanka.moviecatalogue.view.FavoritesMoviesFragment;
+import com.wildanka.moviecatalogue.view.FavoritesTVShowFragment;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import android.util.SparseArray;
-import android.view.ViewGroup;
-
-import com.wildanka.moviecatalogue.view.FavoriteTVShowFragment;
-import com.wildanka.moviecatalogue.view.FavoritesMoviesFragment;
-import com.wildanka.moviecatalogue.view.FavoritesTVShoFragment;
-import com.wildanka.moviecatalogue.view.MovieFragment;
-import com.wildanka.moviecatalogue.view.TVShowFragment;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 
 public class MoviesVPAdapter extends FragmentStatePagerAdapter {
     private final SparseArray<WeakReference<Fragment>> instantiatedFragment = new SparseArray<>();
@@ -30,13 +28,11 @@ public class MoviesVPAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                FavoritesMoviesFragment movieFragment = new FavoritesMoviesFragment();
-                return movieFragment;
+                return new FavoritesMoviesFragment();
             case 1:
-                FavoritesTVShoFragment tvShowFragment = new FavoritesTVShoFragment();
-                return tvShowFragment;
+                return new FavoritesTVShowFragment();
             default:
-                return null;
+                return new FavoritesMoviesFragment();
         }
     }
 

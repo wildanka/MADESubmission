@@ -15,7 +15,7 @@ public class SharedPref {
 
     public void setLanguage(String language) {
         editor.putString("language", language);
-        editor.commit();
+        editor.apply();
     }
     public String loadLanguage() {
         return mSharedPref.getString("language", "en-US");

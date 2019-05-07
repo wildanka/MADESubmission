@@ -91,7 +91,7 @@ public class FavoritesRepository {
     }
     public void removeTVShowFromFavorites(TvShow tvShow) {
         new removeTVShowData(mMoviesDAO).execute(tvShow);
-        Log.e(TAG, "movie data: " + tvShow.getIdTVShow() + " Inserted");
+        Log.e(TAG, "movie data: " + tvShow.getIdTVShow() + " removed");
     }
 
     public LiveData<List<TvShow>> loadTVShowDatabase() {

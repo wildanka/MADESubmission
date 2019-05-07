@@ -9,10 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.wildanka.moviecatalogue.R;
-import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.TvShow;
 import com.wildanka.moviecatalogue.util.SharedPref;
-import com.wildanka.moviecatalogue.view.adapter.FavoritesMovieRVAdapter;
 import com.wildanka.moviecatalogue.view.adapter.FavoritesTVShowRVAdapter;
 import com.wildanka.moviecatalogue.viewmodel.FavoritesMovieTVViewModel;
 
@@ -26,7 +24,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-public class FavoritesTVShoFragment extends Fragment {
+public class FavoritesTVShowFragment extends Fragment {
     private String[] dataTitle;
     private String[] dataOverview;
     private String[] dataShortDescription;
@@ -38,7 +36,7 @@ public class FavoritesTVShoFragment extends Fragment {
     private ProgressBar loadingBar;
     private static final String TAG = "MovieFragment";
 
-    public FavoritesTVShoFragment() {
+    public FavoritesTVShowFragment() {
         // Required empty public constructor
     }
 

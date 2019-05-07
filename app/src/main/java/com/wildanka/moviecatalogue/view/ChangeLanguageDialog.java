@@ -3,9 +3,6 @@ package com.wildanka.moviecatalogue.view;
 import android.content.Context;
 import android.graphics.Point;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -17,8 +14,13 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 
 import com.wildanka.moviecatalogue.R;
-//import com.wildanka.moviecatalogue.databinding.DialogMenuChangeLanguageBinding;
 import com.wildanka.moviecatalogue.util.SharedPref;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+
+//import com.wildanka.moviecatalogue.databinding.DialogMenuChangeLanguageBinding;
 
 public class ChangeLanguageDialog extends DialogFragment {
 //    private DialogMenuChangeLanguageBinding binding;

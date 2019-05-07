@@ -1,17 +1,7 @@
 package com.wildanka.moviecatalogue.view;
 
-import android.content.Context;
 import android.content.res.TypedArray;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +12,16 @@ import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.util.SharedPref;
 import com.wildanka.moviecatalogue.view.adapter.FavoritesMovieRVAdapter;
-import com.wildanka.moviecatalogue.view.adapter.MovieRVAdapter;
 import com.wildanka.moviecatalogue.viewmodel.FavoritesMovieTVViewModel;
-import com.wildanka.moviecatalogue.viewmodel.MovieTVViewModel;
 
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class FavoritesMoviesFragment extends Fragment {

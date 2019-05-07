@@ -2,9 +2,6 @@ package com.wildanka.moviecatalogue.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +13,12 @@ import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.TVShowDetailActivity;
 import com.wildanka.moviecatalogue.model.entity.TvShow;
-import com.wildanka.moviecatalogue.MovieDetailActivity;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class TvShowRVAdapter extends RecyclerView.Adapter<TvShowRVAdapter.MovieRVViewHolder> {
     private static final String TAG = "MovieRVAdapter";

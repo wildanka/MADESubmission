@@ -90,9 +90,6 @@ public class MainActivity extends AppCompatActivity implements ChangeLanguageDia
                 System.out.println("clicked menu");
                 ChangeLanguageDialog dialog = new ChangeLanguageDialog();
                 dialog.show(getSupportFragmentManager(), "changeLanguage");
-
-//                Intent mIntent = new Intent(Settings.ACTION_LOCALE_SETTINGS);
-//                startActivity(mIntent);
                 break;
         }
         return super.onOptionsItemSelected(item);
