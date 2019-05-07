@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.model.entity.Movie;
+import com.wildanka.moviecatalogue.model.entity.TvShow;
 import com.wildanka.moviecatalogue.viewmodel.FavoritesMovieTVViewModel;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -82,10 +83,10 @@ public class TVShowDetailActivity extends AppCompatActivity {
 //        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
         Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
 
-        viewModel.checkFavoritesElseFetch(movieID).observe(this, new Observer<Movie>() {
+        viewModel.checkFavoritesElseFetchTV(movieID).observe(this, new Observer<TvShow>() {
             @Override
-            public void onChanged(Movie movie) {
-                if (movie != null){
+            public void onChanged(TvShow tvShow) {
+                if (tvShow != null){
                     Log.d(TAG, "onChanged: "+movieID+" is a favorite");
                     isFavorites = true;
                 }else{
@@ -98,16 +99,16 @@ public class TVShowDetailActivity extends AppCompatActivity {
 
     private void addToFavorites(){
         //Construct the Movie Object
-        Movie movie = new Movie(movieID,movieRating, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity, movieIsAdult);
-        viewModel.insertData(movie);
+        TvShow tvShow = new TvShow(movieID,movieRating, movieTitle, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity );
+        viewModel.insertFavoriteTVShowData(tvShow);
         isFavorites=true;
         setFavorite();
     }
 
 
     private void removeFromFavorites(){
-        Movie movie = new Movie(movieID,movieRating, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity, movieIsAdult);
-        viewModel.removeData(movie);
+        TvShow tvShow = new TvShow(movieID,movieRating, movieTitle, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity );
+        viewModel.removeFavoriteTVShowData(tvShow);
         isFavorites=false;
         setFavorite();
     }

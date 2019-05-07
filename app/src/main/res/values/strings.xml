@@ -284,6 +284,7 @@
 
     <!--initial value-->
     <string name="title_activity_movie_detail">Movie Detail</string>
+    <string name="title_activity_tv_show_detail">TV Show Detail</string>
 
     <string name="_0">0%</string>
     <string name="title">Movie Title</string>

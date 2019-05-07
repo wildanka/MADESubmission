@@ -99,7 +99,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     private void addToFavorites(){
         //Construct the Movie Object
         Movie movie = new Movie(movieID,movieRating, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity, movieIsAdult);
-        viewModel.insertData(movie);
+        viewModel.insertFavoriteMovieData(movie);
         isFavorites=true;
         setFavorite();
     }
@@ -107,7 +107,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void removeFromFavorites(){
         Movie movie = new Movie(movieID,movieRating, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity, movieIsAdult);
-        viewModel.removeData(movie);
+        viewModel.removeFavoriteMovieData(movie);
         isFavorites=false;
         setFavorite();
     }

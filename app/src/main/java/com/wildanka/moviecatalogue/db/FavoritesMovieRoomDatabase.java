@@ -3,13 +3,14 @@ package com.wildanka.moviecatalogue.db;
 import android.content.Context;
 
 import com.wildanka.moviecatalogue.model.entity.Movie;
+import com.wildanka.moviecatalogue.model.entity.TvShow;
 
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 
-@Database(entities = {Movie.class}, version = 1, exportSchema = false)
+@Database(entities = {Movie.class, TvShow.class}, version = 1, exportSchema = false)
 public abstract class FavoritesMovieRoomDatabase extends RoomDatabase {
     private static FavoritesMovieRoomDatabase INSTANCE;
     public abstract MoviesDAO moviesDAO();

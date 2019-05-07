@@ -35,8 +35,8 @@ public class TvShow {
     @SerializedName("popularity")
     private String popularity;
 
-    public TvShow(String idMovie, String voteCount, String originalName, String title, String dateYear, String rating, String overview, String posterPath, String originalLanguage, String popularity) {
-        this.idTVShow = idMovie;
+    public TvShow(String idTVShow, String voteCount, String originalName, String title, String dateYear, String rating, String overview, String posterPath, String originalLanguage, String popularity) {
+        this.idTVShow = idTVShow;
         this.voteCount = voteCount;
         this.originalName = originalName;
         this.title = title;

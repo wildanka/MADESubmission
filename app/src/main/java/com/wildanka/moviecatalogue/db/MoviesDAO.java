@@ -29,7 +29,7 @@ public interface MoviesDAO {
     @Query("SELECT * FROM movies")
     LiveData<List<Movie>> selectFavoritesMovies();
 
-    @Query("SELECT * FROM movies")
+    @Query("SELECT * FROM tv_shows")
     LiveData<List<TvShow>> selectFavoritesTVShow();
 
     @Query("SELECT * FROM movies WHERE idMovie LIKE :idMovie LIMIT 1")

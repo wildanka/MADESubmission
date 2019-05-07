@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.wildanka.moviecatalogue.view.FavoriteTVShowFragment;
 import com.wildanka.moviecatalogue.view.FavoritesMoviesFragment;
+import com.wildanka.moviecatalogue.view.FavoritesTVShoFragment;
 import com.wildanka.moviecatalogue.view.MovieFragment;
 import com.wildanka.moviecatalogue.view.TVShowFragment;
 
@@ -32,7 +33,7 @@ public class MoviesVPAdapter extends FragmentStatePagerAdapter {
                 FavoritesMoviesFragment movieFragment = new FavoritesMoviesFragment();
                 return movieFragment;
             case 1:
-                FavoriteTVShowFragment tvShowFragment = new FavoriteTVShowFragment();
+                FavoritesTVShoFragment tvShowFragment = new FavoritesTVShoFragment();
                 return tvShowFragment;
             default:
                 return null;

@@ -84,5 +84,57 @@ public class FavoritesRepository {
     }
     //endregion movie
 
+    //region tvShow
+    public void insertTVShowDB(TvShow tvShow) {
+        new insertTVShowData(mMoviesDAO).execute(tvShow);
+        Log.e(TAG, "tv show data: " + tvShow.getIdTVShow() + " Inserted");
+    }
+    public void removeTVShowFromFavorites(TvShow tvShow) {
+        new removeTVShowData(mMoviesDAO).execute(tvShow);
+        Log.e(TAG, "movie data: " + tvShow.getIdTVShow() + " Inserted");
+    }
 
+    public LiveData<List<TvShow>> loadTVShowDatabase() {
+        return mMoviesDAO.selectFavoritesTVShow();
+    }
+    public LiveData<TvShow> checkFavoritesElseFetchTV(String idTVShow) {
+        final MutableLiveData<Boolean> isFavorites = new MutableLiveData<>();
+        final LiveData<TvShow> resMovieData = mMoviesDAO.checkFavoriteTVShow(idTVShow);
+        this.mTvShowList = mMoviesDAO.checkFavoriteTVShow(idTVShow);
+
+        if (resMovieData != null) {
+            Log.e(TAG, "favorite movies: " + resMovieData.getValue());
+        } else {
+            Log.e(TAG, "movie is not a favorite: " + resMovieData.getValue());
+        }
+        return resMovieData;
+    }
+
+    private static class insertTVShowData extends AsyncTask<TvShow, Void, Void> {
+        private MoviesDAO moviesDAOAsyncTask;
+
+        insertTVShowData(MoviesDAO moviesDAOAsyncTask) {
+            this.moviesDAOAsyncTask = moviesDAOAsyncTask;
+        }
+
+        @Override
+        protected Void doInBackground(TvShow... tvShows) {
+            moviesDAOAsyncTask.insertTVShow(tvShows[0]);
+            return null;
+        }
+    }
+    private static class removeTVShowData extends AsyncTask<TvShow, Void, Void> {
+        private MoviesDAO moviesDAOAsyncTask;
+
+        removeTVShowData(MoviesDAO moviesDAOAsyncTask) {
+            this.moviesDAOAsyncTask = moviesDAOAsyncTask;
+        }
+
+        @Override
+        protected Void doInBackground(TvShow... tvShows) {
+            moviesDAOAsyncTask.removeTVShowFromFavorites(tvShows[0]);
+            return null;
+        }
+    }
+    //endregion tvShow
 }

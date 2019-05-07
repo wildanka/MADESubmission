@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="24dp"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/rg_language"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="24dp"
-        android:orientation="vertical">
-
-        <RadioGroup
-            android:id="@+id/rg_language"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/rb_english_us"
+            android:text="@string/english"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <RadioButton
-                android:id="@+id/rb_english_us"
-                android:text="@string/english"
-                android:layout_width="match_parent"
-                android:layout_height="48dp" />
-            <RadioButton
-                android:id="@+id/rb_indonesian_id"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="@string/bahasa_indonesia"/>
-        </RadioGroup>
-
-        <Button
-            android:layout_marginTop="48dp"
-            android:id="@+id/btn_save_changes"
+            android:layout_height="48dp" />
+        <RadioButton
+            android:id="@+id/rb_indonesian_id"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="@string/save_changes"/>
-    </LinearLayout>
-</layout>
+            android:layout_height="48dp"
+            android:text="@string/bahasa_indonesia"/>
+    </RadioGroup>
+
+    <Button
+        android:layout_marginTop="48dp"
+        android:id="@+id/btn_save_changes"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="@string/save_changes"/>
+</LinearLayout>
