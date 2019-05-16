@@ -91,6 +91,11 @@ public class MainActivity extends AppCompatActivity implements ChangeLanguageDia
                 ChangeLanguageDialog dialog = new ChangeLanguageDialog();
                 dialog.show(getSupportFragmentManager(), "changeLanguage");
                 break;
+            case R.id.menu_search:
+                Toast.makeText(MainActivity.this, "search",Toast.LENGTH_SHORT).show();
+                System.out.println("clicked search");
+                SearchMovieBottomSheetDialog searchMovieBottomSheetDialog = new SearchMovieBottomSheetDialog();
+                searchMovieBottomSheetDialog.show(getSupportFragmentManager(),"");
         }
         return super.onOptionsItemSelected(item);
     }

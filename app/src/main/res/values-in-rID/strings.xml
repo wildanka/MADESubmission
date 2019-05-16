@@ -302,5 +302,6 @@
     <string name="english">English</string>
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
     <string name="save_changes">Simpan Perubahan</string>
+    <string name="search_movie">Cari Film</string>
 
 </resources>
