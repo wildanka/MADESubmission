@@ -302,4 +302,6 @@
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
     <string name="save_changes">Save Changes</string>
     <string name="search_movie">Search Movie</string>
+    <string name="reminder">Reminder</string>
+    <string name="widgets">Widgets</string>
 </resources>

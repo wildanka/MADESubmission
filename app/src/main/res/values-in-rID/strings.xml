@@ -303,5 +303,7 @@
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
     <string name="save_changes">Simpan Perubahan</string>
     <string name="search_movie">Cari Film</string>
+    <string name="reminder">Pengingat</string>
+    <string name="widgets">Widget</string>
 
 </resources>
