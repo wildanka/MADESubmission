@@ -23,6 +23,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,10 +34,12 @@ public class MovieFragment extends Fragment {
     private String[] dataShortDescription;
     private String[] dataYear;
     private String[] dataRating;
+    private String language;
     private TypedArray dataPoster;
     private MovieRVAdapter adapter;
     private MovieTVViewModel viewModel;
     private ProgressBar loadingBar;
+    private SwipeRefreshLayout swipeRefreshLayout;
     private static final String TAG = "MovieFragment";
 
     public MovieFragment() {
@@ -52,12 +55,13 @@ public class MovieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         SharedPref sp = new SharedPref(getActivity());
-        String language = sp.loadLanguage();
+        language = sp.loadLanguage();
         viewModel = ViewModelProviders.of(this).get(MovieTVViewModel.class);
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_movie, container, false);
         RecyclerView recyclerView = rootView.findViewById(R.id.rv_movie);
         loadingBar = rootView.findViewById(R.id.pb_movie_fragment);
+        swipeRefreshLayout = rootView.findViewById(R.id.refresh_rv);
 
         //initialize the data
 //        prepareStringArray();
@@ -89,6 +93,13 @@ public class MovieFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         loadingBar.setVisibility(View.VISIBLE);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
         return rootView;
     }
 
@@ -102,17 +113,18 @@ public class MovieFragment extends Fragment {
         dataRating = getResources().getStringArray(R.array.data_rating);
     }
 
-    public void onRefresh(String language) {
-        loadingBar.setVisibility(View.VISIBLE);
+    private void refreshData() {
+        swipeRefreshLayout.setRefreshing(true);
         viewModel.forceGetMovieLists(language).observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(@Nullable List<Movie> movies) {
                 if (movies == null) {
                     Log.e(TAG, "OnRefresh MOooooooooooo");
+                    swipeRefreshLayout.setRefreshing(false);
                 }else{
                     System.out.println(movies.get(0).getTitle());
                     adapter.setListMovie(movies);
-                    loadingBar.setVisibility(View.INVISIBLE);
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
         });
