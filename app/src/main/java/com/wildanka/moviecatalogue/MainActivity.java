@@ -9,10 +9,11 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.wildanka.moviecatalogue.util.SharedPref;
-import com.wildanka.moviecatalogue.view.ChangeLanguageDialog;
+import com.wildanka.moviecatalogue.view.dialog.ChangeLanguageDialog;
 import com.wildanka.moviecatalogue.view.FavoritesFragment;
 import com.wildanka.moviecatalogue.view.MovieFragment;
 import com.wildanka.moviecatalogue.view.TVShowFragment;
+import com.wildanka.moviecatalogue.view.dialog.SearchMovieBottomSheetDialog;
 import com.wildanka.moviecatalogue.viewmodel.MovieTVViewModel;
 
 import androidx.annotation.NonNull;
@@ -72,8 +73,6 @@ public class MainActivity extends AppCompatActivity implements ChangeLanguageDia
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_main_activity);
         setSupportActionBar(toolbar);
         //binding view
-//        tlMoviesCategory = (TabLayout) findViewById(R.id.tl_movies_category);
-//        vpMoviesCategory = (ViewPager) findViewById(R.id.vp_movies_category);
 
 
     }
@@ -84,9 +83,8 @@ public class MainActivity extends AppCompatActivity implements ChangeLanguageDia
         menuInflater.inflate(R.menu.option_menu, menu);
         if(menu instanceof MenuBuilder){
             MenuBuilder menuBuilder = (MenuBuilder) menu;
-            menuBuilder.setOptionalIconsVisible(true);
+            menuBuilder.setOptionalIconsVisible(true); //showing icon in actionbar overflow menu
         }
-
         return super.onCreateOptionsMenu(menu);
     }
 

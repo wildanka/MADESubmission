@@ -4,6 +4,8 @@ import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.MovieFeeds;
 import com.wildanka.moviecatalogue.model.entity.TvShowFeeds;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -28,5 +30,14 @@ public interface ApiMovies {
             @Path("POSTER_SIZE") String posterSize,
             @Path("POSTER_FILENAME") String posterFilename
     );
+
+
+    @GET("search/movie")
+    Call<MovieFeeds> searchMovie(
+            @Query("api_key") String apiKey,
+            @Query("language") String language, //en-US
+            @Query("query") String searchQuery
+    );
+
 
 }

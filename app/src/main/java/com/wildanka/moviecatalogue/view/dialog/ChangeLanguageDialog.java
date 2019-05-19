@@ -1,4 +1,4 @@
-package com.wildanka.moviecatalogue.view;
+package com.wildanka.moviecatalogue.view.dialog;
 
 import android.content.Context;
 import android.graphics.Point;
