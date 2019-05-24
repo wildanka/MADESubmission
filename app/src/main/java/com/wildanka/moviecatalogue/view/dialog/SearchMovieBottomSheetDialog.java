@@ -4,10 +4,12 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -34,20 +36,28 @@ public class SearchMovieBottomSheetDialog extends BottomSheetDialogFragment {
     private BottomSheetBehavior mBehavior;
     private SearchDialogViewModel viewModel;
     private ProgressBar loadingBar;
+    private RadioGroup rgMovieTV;
+    private RadioButton rbMovie;
+    private RadioButton rbTVShow;
+    private RecyclerView recyclerView;
+    private String language ;
+    private SearchView etSearchMovie;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         SharedPref sp = new SharedPref(getActivity());
-        final String language = sp.loadLanguage();
+        language = sp.loadLanguage();
         BottomSheetDialog dialog = (BottomSheetDialog) super.onCreateDialog(savedInstanceState);
         View view = View.inflate(getContext(), R.layout.dialog_search_movie, null);
-        final RecyclerView recyclerView = view.findViewById(R.id.rv_search_movie);
-        ImageView ivSearch = view.findViewById(R.id.iv_search_movie);
-        final RadioGroup rgMovieTV = view.findViewById(R.id.radioGroup);
-        final EditText etSearchMovie = view.findViewById(R.id.et_search_movie);
+        etSearchMovie = view.findViewById(R.id.et_search_movie);
+        etSearchMovie.setIconifiedByDefault(false);
         loadingBar = view.findViewById(R.id.pb_dialog_search_movie);
         loadingBar.setVisibility(View.INVISIBLE);
 
+        final TextView tvBottomSheetTitle = view.findViewById(R.id.tv_bottom_sheet_title);
+
+        rgMovieTV = view.findViewById(R.id.radioGroup);
+        recyclerView = view.findViewById(R.id.rv_search_movie);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(linearLayoutManager);
 
@@ -55,38 +65,36 @@ public class SearchMovieBottomSheetDialog extends BottomSheetDialogFragment {
         //do anything here
         viewModel = ViewModelProviders.of(this).get(SearchDialogViewModel.class);
 
-        ivSearch.setOnClickListener(new View.OnClickListener() {
+        rgMovieTV.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId){
+                    case R.id.rb_movies:
+                        tvBottomSheetTitle.setText("Search Movie");
+                        break;
+                    case R.id.rb_tv_shows:
+                        tvBottomSheetTitle.setText("Search TV Showsgit");
+                        break;
+                }
+            }
+        });
+        etSearchMovie.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                callSearchDate();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                callSearchDate();
+                return true;
+            }
+        });
+        etSearchMovie.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadingBar.setVisibility(View.VISIBLE);
-                if (rgMovieTV.getCheckedRadioButtonId() == R.id.rb_movies){ // Search Movie
-                    MovieRVAdapter = new MovieRVAdapter(getActivity());
-                    recyclerView.setAdapter(MovieRVAdapter);
-                    viewModel.getSearchMovieList(language, etSearchMovie.getText().toString()).observe(SearchMovieBottomSheetDialog.this, new Observer<List<Movie>>() {
-                        @Override
-                        public void onChanged(List<Movie> movies) {
-                            loadingBar.setVisibility(View.INVISIBLE);
-                            if (movies != null) {
-                                Log.e(TAG, "onChanged: "+movies.get(0).getTitle());
-                                MovieRVAdapter.setListMovie(movies);
-                            }
-                        }
-                    });
-                }else{ // Search TV Show
-                    tvShowRVAdapter = new TvShowRVAdapter(getActivity());
-                    recyclerView.setAdapter(tvShowRVAdapter);
-                    Log.e(TAG, "onClick: "+etSearchMovie.getText().toString() );
-                    viewModel.getSearchTVShowsList(language, etSearchMovie.getText().toString()).observe(SearchMovieBottomSheetDialog.this, new Observer<List<TvShow>>() {
-                        @Override
-                        public void onChanged(List<TvShow> tvShows) {
-                            loadingBar.setVisibility(View.INVISIBLE);
-                            if (tvShows != null) {
-                                Log.e(TAG, "onChanged: "+tvShows.get(0).getTitle());
-                                tvShowRVAdapter.setListMovie(tvShows);
-                            }
-                        }
-                    });
-                }
+
             }
         });
         dialog.setContentView(view);
@@ -94,7 +102,34 @@ public class SearchMovieBottomSheetDialog extends BottomSheetDialogFragment {
         return dialog;
     }
 
-
+    private void callSearchDate(){
+        loadingBar.setVisibility(View.VISIBLE);
+        if (rgMovieTV.getCheckedRadioButtonId() == R.id.rb_movies){ // Search Movie
+            MovieRVAdapter = new MovieRVAdapter(getActivity());
+            recyclerView.setAdapter(MovieRVAdapter);
+            viewModel.getSearchMovieList(language, etSearchMovie.getQuery().toString()).observe(SearchMovieBottomSheetDialog.this, new Observer<List<Movie>>() {
+                @Override
+                public void onChanged(List<Movie> movies) {
+                    loadingBar.setVisibility(View.INVISIBLE);
+                    if (movies != null) {
+                        MovieRVAdapter.setListMovie(movies);
+                    }
+                }
+            });
+        }else{ // Search TV Show
+            tvShowRVAdapter = new TvShowRVAdapter(getActivity());
+            recyclerView.setAdapter(tvShowRVAdapter);
+            viewModel.getSearchTVShowsList(language, etSearchMovie.getQuery().toString()).observe(SearchMovieBottomSheetDialog.this, new Observer<List<TvShow>>() {
+                @Override
+                public void onChanged(List<TvShow> tvShows) {
+                    loadingBar.setVisibility(View.INVISIBLE);
+                    if (tvShows != null) {
+                        tvShowRVAdapter.setListMovie(tvShows);
+                    }
+                }
+            });
+        }
+    }
 
     @Override
     public void onStart() {
