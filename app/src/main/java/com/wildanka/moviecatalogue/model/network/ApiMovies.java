@@ -39,5 +39,12 @@ public interface ApiMovies {
             @Query("query") String searchQuery
     );
 
+    @GET("search/tv")
+    Call<TvShowFeeds> searchTVShow(
+            @Query("api_key") String apiKey,
+            @Query("language") String language, //en-US
+            @Query("query") String searchQuery
+    );
+
 
 }
