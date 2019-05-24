@@ -41,7 +41,6 @@ public class TVShowDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_detail);
         viewModel = ViewModelProviders.of(this).get(FavoritesMovieTVViewModel.class);
-//        movieRoomDatabase = Room.databaseBuilder(this, MovieRoomDatabase.class,"favoritesMovieDB").build();
         //receive the intent extras
         movieID = getIntent().getStringExtra("movieId");
         movieTitle = getIntent().getStringExtra("movieVoteCount");

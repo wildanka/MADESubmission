@@ -14,6 +14,15 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
+            android:name=".view.ReminderActivity"
+            android:label="@string/title_activity_reminder2"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.wildanka.moviecatalogue.MainActivity" />
+        </activity>
+        <activity
             android:name=".MovieDetailActivity"
             android:label="@string/title_activity_movie_detail"
             android:parentActivityName=".MainActivity">

@@ -298,12 +298,13 @@
     <string name="movies">Film</string>
     <string name="tv_shows">Acara TV</string>
     <string name="favorites">Favorit</string>
-    <string name="settings">Pengaturan</string>
+    <string name="settings">Bahasa</string>
     <string name="english">English</string>
     <string name="bahasa_indonesia">Bahasa Indonesia</string>
     <string name="save_changes">Simpan Perubahan</string>
     <string name="search_movie">Cari Film</string>
     <string name="reminder">Pengingat</string>
     <string name="widgets">Widget</string>
+    <string name="reminder_desc">Pengingat Rilis menampilkan film yang rilis hari ini</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.wildanka.moviecatalogue;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.wildanka.moviecatalogue.util.SharedPref;
+import com.wildanka.moviecatalogue.view.ReminderActivity;
 import com.wildanka.moviecatalogue.view.dialog.ChangeLanguageDialog;
 import com.wildanka.moviecatalogue.view.FavoritesFragment;
 import com.wildanka.moviecatalogue.view.MovieFragment;
@@ -101,7 +103,18 @@ public class MainActivity extends AppCompatActivity implements ChangeLanguageDia
                 Toast.makeText(MainActivity.this, "search",Toast.LENGTH_SHORT).show();
                 System.out.println("clicked search");
                 SearchMovieBottomSheetDialog searchMovieBottomSheetDialog = new SearchMovieBottomSheetDialog();
-                searchMovieBottomSheetDialog.show(getSupportFragmentManager(),"");
+                searchMovieBottomSheetDialog.show(getSupportFragmentManager(), "");
+                break;
+            case R.id.menu_reminder:
+                Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
+                System.out.println("clicked reminder");
+                Intent in = new Intent(MainActivity.this, ReminderActivity.class);
+                startActivity(in);
+                break;
+            case R.id.menu_widgets:
+                Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
+                System.out.println("clicked widget");
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

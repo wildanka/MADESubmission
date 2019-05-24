@@ -54,7 +54,7 @@ public class MovieFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        SharedPref sp = new SharedPref(getActivity());
+        final SharedPref sp = new SharedPref(getActivity());
         language = sp.loadLanguage();
         viewModel = ViewModelProviders.of(this).get(MovieTVViewModel.class);
         // Inflate the layout for this fragment
@@ -97,6 +97,7 @@ public class MovieFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                language = sp.loadLanguage();
                 refreshData();
             }
         });
