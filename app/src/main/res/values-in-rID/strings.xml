@@ -306,5 +306,6 @@
     <string name="reminder">Pengingat</string>
     <string name="widgets">Widget</string>
     <string name="reminder_desc">Pengingat Rilis menampilkan film yang rilis hari ini</string>
+    <string name="title_activity_reminder">Pengingat</string>
 
 </resources>
