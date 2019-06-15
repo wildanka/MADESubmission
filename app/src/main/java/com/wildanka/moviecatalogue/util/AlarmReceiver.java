@@ -14,6 +14,7 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.wildanka.moviecatalogue.MainActivity;
 import com.wildanka.moviecatalogue.R;
 
 import java.text.DateFormat;
@@ -132,13 +133,28 @@ public class AlarmReceiver extends BroadcastReceiver {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         //2. create the notification COMPAT builder
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_notifications_none_black_24dp)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setColor(ContextCompat.getColor(context, android.R.color.transparent))
-                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
-                .setSound(alarmSound);
+        Intent resultIntent = new Intent(context, MainActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, ID_DAILY_REMINDER, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder;
+        if (notifId==ID_DAILY_REMINDER){
+            builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_notifications_none_black_24dp)
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setContentIntent(resultPendingIntent)
+                    .setColor(ContextCompat.getColor(context, android.R.color.transparent))
+                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                    .setSound(alarmSound);
+        }else{
+            builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_notifications_none_black_24dp)
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setContentIntent(resultPendingIntent)
+                    .setColor(ContextCompat.getColor(context, android.R.color.transparent))
+                    .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
+                    .setSound(alarmSound);
+        }
 
         //3. if user OS version is above O, we need to create a notification channel first
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

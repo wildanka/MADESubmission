@@ -20,4 +20,24 @@ public class SharedPref {
     public String loadLanguage() {
         return mSharedPref.getString("language", "en-US");
     }
+
+    public void setDailyReminder(boolean dailyReminderState) {
+        editor.putBoolean("dailyReminderState", dailyReminderState);
+        editor.apply();
+    }
+
+    public boolean loadDailyReminderState() {
+        return mSharedPref.getBoolean("dailyReminderState", false);
+    }
+
+    public void setReleaseReminder(boolean dailyReminderState) {
+        editor.putBoolean("releaseReminderState", dailyReminderState);
+        editor.apply();
+    }
+
+    public boolean loadReleaseReminderState() {
+        return mSharedPref.getBoolean("releaseReminderState", false);
+    }
+
+
 }
