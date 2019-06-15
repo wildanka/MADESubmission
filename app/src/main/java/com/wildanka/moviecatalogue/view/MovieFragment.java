@@ -64,8 +64,6 @@ public class MovieFragment extends Fragment {
         swipeRefreshLayout = rootView.findViewById(R.id.refresh_rv);
 
         //initialize the data
-//        prepareStringArray();
-
         if (savedInstanceState != null){
             viewModel.getMovieLists(language).observe(this, new Observer<List<Movie>>() {
                 @Override
@@ -85,7 +83,6 @@ public class MovieFragment extends Fragment {
                 }
             });
         }
-
 
         adapter = new MovieRVAdapter(getActivity());
 
