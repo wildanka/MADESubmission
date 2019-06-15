@@ -15,8 +15,8 @@ import com.wildanka.moviecatalogue.util.SharedPref;
 
 public class ReminderActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     private static final String TAG = "ReminderActivity";
-    public static final String alarmTimeDaily = "14:28";
-    public static final String alarmTimeRelease = "14:28";
+    public static final String alarmTimeDaily = "07:00";
+    public static final String alarmTimeRelease = "08:00";
     private AlarmReceiver alarmReceiver;
     private SharedPref sharedPref;
     @Override
