@@ -19,7 +19,7 @@ public class SampleContentProvider extends ContentProvider {
     /* the authority of this content Provider*/
     public static final String AUTHORITY = "com.wildanka.moviecatalogue.provider";
     /* The URI for the menu table*/
-    public static final Uri URI_MENU = Uri.parse("content://" + AUTHORITY + "/" + Movie.TABLE_NAME);
+    public static final Uri URI_MOVIE = Uri.parse("content://" + AUTHORITY + "/" + Movie.TABLE_NAME);
 
     /* The match code for some items in the menu table. */
     private static final int CODE_MOVIE_DIR = 1;
