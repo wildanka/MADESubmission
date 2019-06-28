@@ -98,7 +98,18 @@ public class MovieDetailActivity extends AppCompatActivity {
 
     private void addToFavorites(){
         //Construct the Movie Object
-        Movie movie = new Movie(movieID,movieRating, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity, movieIsAdult);
+//        Movie movie = new Movie(movieID,movieRating, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity, movieIsAdult);
+        Movie movie = new Movie();
+        movie.setIdMovie(movieID)
+                .setVoteCount(movieRating)
+                .setTitle(movieTitle)
+                .setDateYear(movieReleaseDate)
+                .setRating(movieRating)
+                .setOverview(movieOverview)
+                .setPosterPath(MOVIE_POSTER_URI)
+                .setOriginalLanguage(movieOriginalLanguage)
+                .setPopularity(moviePopularity)
+                .setAdult(movieIsAdult);
         viewModel.insertFavoriteMovieData(movie);
         isFavorites=true;
         setFavorite();
@@ -106,7 +117,18 @@ public class MovieDetailActivity extends AppCompatActivity {
 
 
     private void removeFromFavorites(){
-        Movie movie = new Movie(movieID,movieRating, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity, movieIsAdult);
+//        Movie movie = new Movie(movieID,movieRating, movieTitle, movieReleaseDate, movieRating, movieOverview, MOVIE_POSTER_URI, movieOriginalLanguage, moviePopularity, movieIsAdult);
+        Movie movie = new Movie();
+        movie.setIdMovie(movieID)
+                .setVoteCount(movieRating)
+                .setTitle(movieTitle)
+                .setDateYear(movieReleaseDate)
+                .setRating(movieRating)
+                .setOverview(movieOverview)
+                .setPosterPath(MOVIE_POSTER_URI)
+                .setOriginalLanguage(movieOriginalLanguage)
+                .setPopularity(moviePopularity)
+                .setAdult(movieIsAdult);
         viewModel.removeFavoriteMovieData(movie);
         isFavorites=false;
         setFavorite();

@@ -15,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <provider
+            android:name=".provider.SampleContentProvider"
+            android:authorities="com.wildanka.moviecatalogue.provider"
+            android:enabled="true"
+            android:exported="true"></provider>
+
         <receiver android:name=".widget.MovieCatalogFavoritesWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

@@ -1,40 +1,63 @@
 package com.wildanka.moviecatalogue.model.entity;
 
+import android.content.ContentValues;
+import android.provider.BaseColumns;
+import android.view.Menu;
+
 import com.google.gson.annotations.SerializedName;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "movies")
+@Entity(tableName = Movie.TABLE_NAME)
 public class Movie {
+    public static final String TABLE_NAME = "movies";
+    public static final String COLUMN_ID = "idMovie";
+    public static final String COLUMN_NAME = "title";
+
+    public static Movie fromContentValues(ContentValues contentValues) {
+        final Movie movie = new Movie();
+        if (contentValues.containsKey(COLUMN_ID)) {
+            movie.idMovie = contentValues.getAsString(COLUMN_ID);
+        }
+        if (contentValues.containsKey(COLUMN_NAME)) {
+            movie.title = contentValues.getAsString(COLUMN_NAME);
+        }
+        return movie;
+    }
+
     @PrimaryKey
     @NonNull
     @SerializedName("id")
-    private String idMovie;
+    public String idMovie;
     @SerializedName("vote_count")
-    private String voteCount;
+    public String voteCount;
     @SerializedName("title")
-    private String title;
+    public String title;
     @SerializedName("release_date")
-    private String dateYear;
+    public String dateYear;
     @SerializedName("vote_average")
-    private String rating;
+    public String rating;
 
     @SerializedName("overview")
-    private String overview;
+    public String overview;
     @SerializedName("poster_path")
-    private String posterPath;
+    public String posterPath;
 
     @SerializedName("original_language")
-    private String originalLanguage;
+    public String originalLanguage;
 
     @SerializedName("popularity")
-    private String popularity;
+    public String popularity;
 
     @SerializedName("adult")
-    private boolean adult;
+    public boolean adult;
 
+    public Movie() {
+    }
+
+/*
     public Movie(String idMovie, String voteCount, String title, String dateYear, String rating, String overview, String posterPath, String originalLanguage, String popularity, boolean adult) {
         this.idMovie = idMovie;
         this.voteCount = voteCount;
@@ -47,6 +70,7 @@ public class Movie {
         this.popularity = popularity;
         this.adult = adult;
     }
+*/
 
     public String getIdMovie() {
         return idMovie;
@@ -87,4 +111,57 @@ public class Movie {
     public boolean isAdult() {
         return adult;
     }
+
+
+    public Movie setIdMovie(@NonNull String idMovie) {
+        this.idMovie = idMovie;
+        return this;
+    }
+
+    public Movie setVoteCount(String voteCount) {
+        this.voteCount = voteCount;
+        return this;
+    }
+
+    public Movie setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public Movie setDateYear(String dateYear) {
+        this.dateYear = dateYear;
+        return this;
+    }
+
+    public Movie setRating(String rating) {
+        this.rating = rating;
+        return this;
+    }
+
+    public Movie setOverview(String overview) {
+        this.overview = overview;
+        return this;
+    }
+
+    public Movie setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+        return this;
+    }
+
+    public Movie setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
+        return this;
+    }
+
+    public Movie setPopularity(String popularity) {
+        this.popularity = popularity;
+        return this;
+    }
+
+    public Movie setAdult(boolean adult) {
+        this.adult = adult;
+        return this;
+    }
+
+
 }

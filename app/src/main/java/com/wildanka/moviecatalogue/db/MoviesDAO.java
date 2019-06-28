@@ -1,5 +1,7 @@
 package com.wildanka.moviecatalogue.db;
 
+import android.database.Cursor;
+
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.TvShow;
 
@@ -11,11 +13,15 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 @Dao
 public interface MoviesDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMovie(Movie movieInsertion);
+
+    @Insert
+    long insertMovieContentProvider (Movie movieInsertion);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertTVShow(TvShow tvShowDeletion);
@@ -38,5 +44,28 @@ public interface MoviesDAO {
     @Query("SELECT * FROM tv_shows WHERE idTVShow LIKE :idTVShow LIMIT 1")
     LiveData<TvShow> checkFavoriteTVShow(String idTVShow);
 
+
+    @Query("SELECT * FROM movies")
+    Cursor selectFavoritesMoviesCursor();
+
+    @Query("SELECT * FROM " +Movie.TABLE_NAME+" WHERE "+Movie.COLUMN_ID+" = :id")
+    Cursor selectFavoritesMoviesCursorById(long id);
+    /**
+     * Delete a movie by the MovieID.
+     *
+     * @param idMovie The row ID.
+     * @return A number of movie deleted. This should always be {@code 1}.
+     */
+    @Query("DELETE FROM " + Movie.TABLE_NAME + " WHERE " + Movie.COLUMN_ID + " = :idMovie")
+    int deleteById(String idMovie);
+
+    /**
+     * Update the movie. The cheese is identified by the row ID.
+     *
+     * @param movie The cheese to update.
+     * @return A number of movies updated. This should always be {@code 1}.
+     */
+    @Update
+    int update(Movie movie);
 
 }
