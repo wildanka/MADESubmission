@@ -59,7 +59,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         final int notifId = type.equalsIgnoreCase(TYPE_DAILY_REMINDER) ? ID_DAILY_REMINDER : ID_RELEASE_REMINDER;
 
         SharedPref sp = new SharedPref(context);
-        if (sp.loadReleaseReminderState()){
+        if (sp.loadReleaseReminderState() && notifId == ID_RELEASE_REMINDER) {
             //fetch data from API if release reminder is enabled
             ApiMovies mApi = ApiClient.getClient().create(ApiMovies.class);
             String todayDate = "2019-07-03";
@@ -86,9 +86,11 @@ public class AlarmReceiver extends BroadcastReceiver {
                 }
             });
         }
-        //Jika Anda ingin menampilkan dengan Notif anda bisa menghilangkan komentar pada baris dibawah ini.
-        showToast(context, title, message);
-        showAlarmNotification(context, title, message, notifId);
+        if (sp.loadDailyReminderState() && notifId == ID_DAILY_REMINDER) {
+            //Jika Anda ingin menampilkan dengan Notif anda bisa menghilangkan komentar pada baris dibawah ini.
+            showToast(context, title, message);
+            showAlarmNotification(context, title, message, notifId);
+        }
     }
 
     //set the onetime alarm
