@@ -68,14 +68,13 @@ public class AlarmReceiver extends BroadcastReceiver {
             call.enqueue(new Callback<ReleaseTodayData>() {
                 @Override
                 public void onResponse(Call<ReleaseTodayData> call, Response<ReleaseTodayData> response) {
-                    final MutableLiveData<ReleaseTodayData> releaseTodayDataMutableLiveData = new MutableLiveData<>();
                     final MutableLiveData<List<ReleaseTodayResult>> releaseTodayList = new MutableLiveData<>();
                     if (response.code() == 200) {
                         if (response.body() != null) {
                             releaseTodayList.setValue(response.body().getReleaseTodayResults());
-                            Log.e(TAG, "onResponse: " + releaseTodayDataMutableLiveData.getValue().getReleaseTodayResults().get(0).getTitle());
-                            showToast(context, title, "Released Movie Today is : " + releaseTodayDataMutableLiveData.getValue().getReleaseTodayResults().get(0).getTitle());
-                            showAlarmNotification(context, title, message, notifId);
+                            Log.e(TAG, "onResponse: " + releaseTodayList.getValue().get(0).getTitle());
+                            showToast(context, title, "Released Movie Today is : " + releaseTodayList.getValue().get(0).getTitle());
+                            showAlarmNotification(context, title, "Released Movie Today is : " + releaseTodayList.getValue().get(0).getTitle(), notifId);
                         }
                     }
                 }
@@ -87,9 +86,9 @@ public class AlarmReceiver extends BroadcastReceiver {
                 }
             });
         }
-//        showToast(context, title, message);
         //Jika Anda ingin menampilkan dengan Notif anda bisa menghilangkan komentar pada baris dibawah ini.
-//        showAlarmNotification(context, title, message, notifId);
+        showToast(context, title, message);
+        showAlarmNotification(context, title, message, notifId);
     }
 
     //set the onetime alarm

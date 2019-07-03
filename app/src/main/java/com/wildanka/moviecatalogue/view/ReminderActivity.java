@@ -15,8 +15,8 @@ import com.wildanka.moviecatalogue.util.SharedPref;
 
 public class ReminderActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
     private static final String TAG = "ReminderActivity";
-    public static final String alarmTimeDaily = "00:08";
-    public static final String alarmTimeRelease = "00:08";
+    public static final String alarmTimeDaily = "00:22";
+    public static final String alarmTimeRelease = "00:22";
     private AlarmReceiver alarmReceiver;
     private SharedPref sharedPref;
     @Override
@@ -57,7 +57,7 @@ public class ReminderActivity extends AppCompatActivity implements CompoundButto
                 Log.e(TAG, "release reminder state changed to " + isChecked + " for alarm at : " + alarmTimeRelease);
                 if (isChecked) { //on
                     sharedPref.setReleaseReminder(isChecked);
-                    alarmReceiver.setReleaseRepeatingAlarm(ReminderActivity.this, AlarmReceiver.TYPE_RELEASE_REMINDER, alarmTimeRelease, "Check New Movies Releases today! (Release Reminder)");
+                    alarmReceiver.setReleaseRepeatingAlarm(ReminderActivity.this, AlarmReceiver.TYPE_RELEASE_REMINDER, alarmTimeRelease, "New Movies Releases today: ");
                 } else {
                     sharedPref.setReleaseReminder(isChecked);
                     alarmReceiver.cancelAlarm(ReminderActivity.this, AlarmReceiver.TYPE_RELEASE_REMINDER);
