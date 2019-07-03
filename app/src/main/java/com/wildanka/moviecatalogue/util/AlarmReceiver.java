@@ -16,15 +16,26 @@ import android.widget.Toast;
 
 import com.wildanka.moviecatalogue.MainActivity;
 import com.wildanka.moviecatalogue.R;
+import com.wildanka.moviecatalogue.model.entity.ReleaseTodayData;
+import com.wildanka.moviecatalogue.model.entity.ReleaseTodayResult;
+import com.wildanka.moviecatalogue.model.network.ApiMovies;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.MutableLiveData;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.wildanka.moviecatalogue.BuildConfig.API_V3_KEY;
 
 public class AlarmReceiver extends BroadcastReceiver {
     public static final String TYPE_DAILY_REMINDER = "DailyAlarm";
@@ -40,16 +51,42 @@ public class AlarmReceiver extends BroadcastReceiver {
     private String TIME_FORMAT = "HH:mm";
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(final Context context, Intent intent) {
         String type = intent.getStringExtra(EXTRA_TYPE);
-        String message = intent.getStringExtra(EXTRA_MESSAGE);
+        final String message = intent.getStringExtra(EXTRA_MESSAGE);
 
-        String title = type.equalsIgnoreCase(TYPE_DAILY_REMINDER) ? TYPE_DAILY_REMINDER : TYPE_RELEASE_REMINDER;
-        int notifId = type.equalsIgnoreCase(TYPE_DAILY_REMINDER) ? ID_DAILY_REMINDER : ID_RELEASE_REMINDER;
+        final String title = type.equalsIgnoreCase(TYPE_DAILY_REMINDER) ? TYPE_DAILY_REMINDER : TYPE_RELEASE_REMINDER;
+        final int notifId = type.equalsIgnoreCase(TYPE_DAILY_REMINDER) ? ID_DAILY_REMINDER : ID_RELEASE_REMINDER;
 
-        showToast(context, title, message);
+        SharedPref sp = new SharedPref(context);
+        if (sp.loadReleaseReminderState()){
+            //fetch data from API if release reminder is enabled
+            ApiMovies mApi = ApiClient.getClient().create(ApiMovies.class);
+            String todayDate = "2019-07-03";
+            Call<ReleaseTodayData> call = mApi.getTodayRelease(API_V3_KEY,todayDate,todayDate,sp.loadLanguage());
+
+            call.enqueue(new Callback<ReleaseTodayData>() {
+                @Override
+                public void onResponse(Call<ReleaseTodayData> call, Response<ReleaseTodayData> response) {
+                    final MutableLiveData<ReleaseTodayData> releaseTodayDataMutableLiveData = new MutableLiveData<>();
+                    final MutableLiveData<List<ReleaseTodayResult>> releaseTodayList = new MutableLiveData<>();
+                    if (response.code() == 200) {
+                        releaseTodayList.setValue(releaseTodayDataMutableLiveData.getValue().getReleaseTodayResults());
+                        showToast(context, title, "Released Movie Today is : "+releaseTodayDataMutableLiveData.getValue().getReleaseTodayResults().get(0).getTitle());
+                        showAlarmNotification(context, title, message, notifId);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ReleaseTodayData> call, Throwable t) {
+                    t.printStackTrace();
+                    Log.e(TAG, "onFailure: "+t.getMessage());
+                }
+            });
+        }
+//        showToast(context, title, message);
         //Jika Anda ingin menampilkan dengan Notif anda bisa menghilangkan komentar pada baris dibawah ini.
-        showAlarmNotification(context, title, message, notifId);
+//        showAlarmNotification(context, title, message, notifId);
     }
 
     //set the onetime alarm

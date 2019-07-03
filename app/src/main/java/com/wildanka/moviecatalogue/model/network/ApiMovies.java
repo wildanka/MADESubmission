@@ -2,10 +2,12 @@ package com.wildanka.moviecatalogue.model.network;
 
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.MovieFeeds;
+import com.wildanka.moviecatalogue.model.entity.ReleaseTodayData;
 import com.wildanka.moviecatalogue.model.entity.TvShowFeeds;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -46,5 +48,11 @@ public interface ApiMovies {
             @Query("query") String searchQuery
     );
 
-
+    @GET("https://api.themoviedb.org/3/discover/movie")
+    Call<ReleaseTodayData> getTodayRelease(
+            @Query("api_key") String apiKey,
+            @Query("primary_release_date.gte") String releaseDateGTE, //2019-07-03
+            @Query("primary_release_date.lte") String releaseDateLTE, //2019-07-03
+            @Query("language") String language //en-US
+    );
 }
