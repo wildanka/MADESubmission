@@ -48,7 +48,7 @@ public interface ApiMovies {
             @Query("query") String searchQuery
     );
 
-    @GET("https://api.themoviedb.org/3/discover/movie")
+    @GET("discover/movie")
     Call<ReleaseTodayData> getTodayRelease(
             @Query("api_key") String apiKey,
             @Query("primary_release_date.gte") String releaseDateGTE, //2019-07-03

@@ -5,10 +5,9 @@ import com.google.gson.annotations.SerializedName;
 public class ReleaseTodayResult {
     @SerializedName("vote_count")
     private Integer voteCount;
-    @SerializedName("vote_count")
+
+    @SerializedName("id")
     private Integer id;
-    @SerializedName("vote_average")
-    private Integer voteAverage;
     @SerializedName("title")
     private String title;
     @SerializedName("poster_path")
@@ -17,8 +16,6 @@ public class ReleaseTodayResult {
     private String originalLanguage;
     @SerializedName("original_title")
     private String originalTitle;
-    @SerializedName("backdrop_path")
-    private String backdropPath;
     @SerializedName("release_date")
     private String releaseDate;
 
@@ -28,10 +25,6 @@ public class ReleaseTodayResult {
 
     public Integer getId() {
         return id;
-    }
-
-    public Integer getVoteAverage() {
-        return voteAverage;
     }
 
     public String getTitle() {
@@ -48,10 +41,6 @@ public class ReleaseTodayResult {
 
     public String getOriginalTitle() {
         return originalTitle;
-    }
-
-    public String getBackdropPath() {
-        return backdropPath;
     }
 
     public String getReleaseDate() {

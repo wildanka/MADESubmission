@@ -71,9 +71,12 @@ public class AlarmReceiver extends BroadcastReceiver {
                     final MutableLiveData<ReleaseTodayData> releaseTodayDataMutableLiveData = new MutableLiveData<>();
                     final MutableLiveData<List<ReleaseTodayResult>> releaseTodayList = new MutableLiveData<>();
                     if (response.code() == 200) {
-                        releaseTodayList.setValue(releaseTodayDataMutableLiveData.getValue().getReleaseTodayResults());
-                        showToast(context, title, "Released Movie Today is : "+releaseTodayDataMutableLiveData.getValue().getReleaseTodayResults().get(0).getTitle());
-                        showAlarmNotification(context, title, message, notifId);
+                        if (response.body() != null) {
+                            releaseTodayList.setValue(response.body().getReleaseTodayResults());
+                            Log.e(TAG, "onResponse: " + releaseTodayDataMutableLiveData.getValue().getReleaseTodayResults().get(0).getTitle());
+                            showToast(context, title, "Released Movie Today is : " + releaseTodayDataMutableLiveData.getValue().getReleaseTodayResults().get(0).getTitle());
+                            showAlarmNotification(context, title, message, notifId);
+                        }
                     }
                 }
 
