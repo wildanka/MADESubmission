@@ -75,7 +75,9 @@
         <receiver
             android:name=".util.AlarmReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+        <service android:name=".widget.StackWidgetService" />
     </application>
 
 </manifest>

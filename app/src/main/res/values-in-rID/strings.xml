@@ -309,5 +309,7 @@
     <string name="title_activity_reminder">Pengingat</string>
     <string name="daily_reminder">Pengingat Harian</string>
     <string name="reminder_for_return_to_app">Pengingat untuk kembali ke aplikasi</string>
-
+    <string name="appwidget_text">Film Favorit</string>
+    <string name="add_widget">Add widget</string>
+    <string name="empty_text">NO DATA</string>
 </resources>
