@@ -25,7 +25,6 @@ public class MovieCatalogFavoritesWidget extends AppWidgetProvider {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
 
-        CharSequence widgetText = context.getString(R.string.appwidget_text);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.movie_catalog_favorites_widget_banner);
         views.setRemoteAdapter(R.id.stack_view, intent);
@@ -34,12 +33,11 @@ public class MovieCatalogFavoritesWidget extends AppWidgetProvider {
         Intent toastIntent = new Intent(context, MovieCatalogFavoritesWidget.class);
         toastIntent.setAction(MovieCatalogFavoritesWidget.TOAST_ACTION);
         toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
         PendingIntent toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent);
 
         // Instruct the widget manager to update the widget
-        views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent);
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
@@ -49,16 +47,6 @@ public class MovieCatalogFavoritesWidget extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
-    }
-
-    @Override
-    public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
-    }
-
-    @Override
-    public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
     }
 
     @Override

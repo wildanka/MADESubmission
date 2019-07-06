@@ -42,20 +42,25 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public int getCount() {
-        return 0;
+        if (mWidgetItems != null){ // karena sekarang dataset stackwidget masih ditanam, maka
+            // "mWidgetItems != null" akan selalu menghasilkan 'true'
+            return mWidgetItems.size();
+        }else{
+            return 0;
+        }
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
-        remoteViews.setImageViewBitmap(R.id.iv_item_movie_poster, mWidgetItems.get(position));
+        remoteViews.setImageViewBitmap(R.id.imageView, mWidgetItems.get(position));
 
         Bundle extras = new Bundle();
         extras.putInt(MovieCatalogFavoritesWidget.EXTRA_ITEM, position);
         Intent fillIntent = new Intent();
         fillIntent.putExtras(extras);
 
-        remoteViews.setOnClickFillInIntent(R.id.iv_movie_poster_widget,fillIntent);
+        remoteViews.setOnClickFillInIntent(R.id.imageView,fillIntent);
         return remoteViews;
     }
 
