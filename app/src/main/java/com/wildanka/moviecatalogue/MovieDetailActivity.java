@@ -1,5 +1,6 @@
 package com.wildanka.moviecatalogue;
 
+import android.appwidget.AppWidgetManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -113,6 +114,12 @@ public class MovieDetailActivity extends AppCompatActivity {
         viewModel.insertFavoriteMovieData(movie);
         isFavorites=true;
         setFavorite();
+
+        //TODO : Lakukan update terhadap data di stackView,
+        // Caranya? trigger AppWidgetManager notifyAppWidgetViewDataChanged
+
+//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(MovieDetailActivity.this);
+//        appWidgetManager.notifyAppWidgetViewDataChanged();
     }
 
 

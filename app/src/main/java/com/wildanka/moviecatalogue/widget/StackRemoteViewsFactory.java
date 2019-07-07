@@ -4,17 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private final List<Bitmap> mWidgetItems = new ArrayList<>();
+    private final List<Uri> moviePosterUri = new ArrayList<>();
     private final Context mContext;
 
     StackRemoteViewsFactory(Context context) {
@@ -28,11 +32,33 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public void onDataSetChanged() {
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.darth_vader));
+        //TODO: Load Data dari SQLite, kemudian tampilkan poster berdasarkan URL yang disimpan
+//        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/" + "b9uYMMbm87IBFOq59pppvkkkgNg.jpg";
+        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w92/";
+
+        moviePosterUri.add(Uri.parse(MOVIE_POSTER_URI + "b9uYMMbm87IBFOq59pppvkkkgNg.jpg"));
+        moviePosterUri.add(Uri.parse(MOVIE_POSTER_URI + "lIv1QinFqz4dlp5U4lQ6HaiskOZ.jpg"));
+        moviePosterUri.add(Uri.parse(MOVIE_POSTER_URI + "gdiLTof3rbPDAmPaCf4g6op46bj.jpg"));
+        moviePosterUri.add(Uri.parse(MOVIE_POSTER_URI + "2eQfjqlvPAxd9aLDs8DvsKLnfed.jpg"));
+        try {
+            Bitmap poster = Picasso.get().load(MOVIE_POSTER_URI + "b9uYMMbm87IBFOq59pppvkkkgNg.jpg").get();
+            Bitmap poster1 = Picasso.get().load(MOVIE_POSTER_URI + "lIv1QinFqz4dlp5U4lQ6HaiskOZ.jpg").get();
+            Bitmap poster2 = Picasso.get().load(MOVIE_POSTER_URI + "gdiLTof3rbPDAmPaCf4g6op46bj.jpg").get();
+            Bitmap poster3 = Picasso.get().load(MOVIE_POSTER_URI + "2eQfjqlvPAxd9aLDs8DvsKLnfed.jpg").get();
+            mWidgetItems.add(poster);
+            mWidgetItems.add(poster1);
+            mWidgetItems.add(poster2);
+            mWidgetItems.add(poster3);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        /*mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.darth_vader));
         mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.star_wars_logo));
         mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.storm_trooper));
         mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.starwars));
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.falcon));
+        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.falcon));*/
     }
 
     @Override
