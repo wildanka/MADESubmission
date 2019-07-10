@@ -1,16 +1,26 @@
 package com.wildanka.moviecatalogue.widget;
 
+import android.app.Application;
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import androidx.lifecycle.LiveData;
+
 import com.squareup.picasso.Picasso;
+import com.wildanka.moviecatalogue.MovieCatalog;
 import com.wildanka.moviecatalogue.R;
+import com.wildanka.moviecatalogue.db.FavoritesMovieRoomDatabase;
+import com.wildanka.moviecatalogue.db.FavoritesRepository;
+import com.wildanka.moviecatalogue.db.MoviesDAO;
+import com.wildanka.moviecatalogue.model.entity.Movie;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +30,11 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     private final List<Bitmap> mWidgetItems = new ArrayList<>();
     private final List<Uri> moviePosterUri = new ArrayList<>();
     private final Context mContext;
+    private FavoritesMovieRoomDatabase database;
+    private FavoritesRepository repository;
+    private LiveData<List<Movie>> movieLists;
+    private static final String TAG = "StackRemoteViewsFactory";
+    private MoviesDAO mMoviesDAO;
 
     StackRemoteViewsFactory(Context context) {
         mContext = context;
@@ -28,11 +43,31 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     @Override
     public void onCreate() {
 
+        movieLists = loadMovieDatabase(); // 3.
+
+//        Log.e(TAG, "WIDGET onDataSetChanged: "+movieLists.getValue().get(0).getTitle());
+
+    }
+
+    private LiveData<List<Movie>> loadMovieDatabase() {
+        //Load data from SQLite
+        database = FavoritesMovieRoomDatabase.getInstance(mContext); // 1. Buka Koneksi Database
+        this.mMoviesDAO = database.moviesDAO(); //2. instansiasi dao
+        Log.e(TAG, "loadMovieDatabase: INI WIDGET ");
+        if (mMoviesDAO.selectFavoritesMovies() != null) {
+            Log.e(TAG, "WIDGET TIDAK NULL ");
+            System.out.println(TAG+" | "+mMoviesDAO.selectFavoritesMovies().getValue());
+        }else{
+            Log.e(TAG, "WIDGET NULL ");
+        }
+        return mMoviesDAO.selectFavoritesMovies();
     }
 
     @Override
     public void onDataSetChanged() {
         //TODO: Load Data dari SQLite, kemudian tampilkan poster berdasarkan URL yang disimpan
+
+        loadMovieDatabase();
 //        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/" + "b9uYMMbm87IBFOq59pppvkkkgNg.jpg";
         String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w92/";
 

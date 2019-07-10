@@ -39,6 +39,7 @@ public class FavoritesRepository {
     }
 
     public LiveData<List<Movie>> loadMovieDatabase() {
+        System.out.println(TAG+" | "+mMoviesDAO.selectFavoritesMovies().getValue());
         return mMoviesDAO.selectFavoritesMovies();
     }
 
@@ -103,7 +104,7 @@ public class FavoritesRepository {
         this.mTvShowList = mMoviesDAO.checkFavoriteTVShow(idTVShow);
 
         if (resMovieData != null) {
-            Log.e(TAG, "favorite movies: " + resMovieData.getValue());
+            Log.e(TAG, "favorite TV Show: " + resMovieData.getValue());
         } else {
             Log.e(TAG, "movie is not a favorite: " + resMovieData.getValue());
         }

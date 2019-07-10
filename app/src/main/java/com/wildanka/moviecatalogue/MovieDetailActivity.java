@@ -1,6 +1,8 @@
 package com.wildanka.moviecatalogue;
 
 import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.viewmodel.FavoritesMovieTVViewModel;
+import com.wildanka.moviecatalogue.widget.MovieCatalogFavoritesWidget;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -117,9 +120,19 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         //TODO : Lakukan update terhadap data di stackView,
         // Caranya? trigger AppWidgetManager notifyAppWidgetViewDataChanged
+//
+//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
+//        appWidgetManager.notifyAppWidgetViewDataChanged(MovieCatalogFavoritesWidget.class,);
 
-//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(MovieDetailActivity.this);
-//        appWidgetManager.notifyAppWidgetViewDataChanged();
+      /*  Intent intent = new Intent(this, MovieCatalogFavoritesWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+        // since it seems the onUpdate() is only fired on that:
+        int[] ids = AppWidgetManager.getInstance(getApplication())
+                .getAppWidgetIds(new ComponentName(getApplication(), MovieCatalogFavoritesWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);*/
     }
 
 

@@ -72,6 +72,7 @@ public class FavoritesMoviesFragment extends Fragment {
                     Log.d(TAG, "onChanged: No Favorite Movie Data from the Database");
                     loadingBar.setVisibility(View.INVISIBLE);
                 }else{
+                    Log.e(TAG, "onCreateView, onChanged: "+movies.get(0).getTitle());
                     System.out.println(movies.get(0).getTitle());
                     adapter.setListMovie(movies);
                     loadingBar.setVisibility(View.INVISIBLE);
@@ -99,6 +100,7 @@ public class FavoritesMoviesFragment extends Fragment {
                 if (movies == null) {
                     Log.e(TAG, "OnRefresh MOooooooooooo");
                 } else {
+                    Log.e(TAG, "onRefresh, onChanged: "+movies.get(0).getTitle());
                     System.out.println(movies.get(0).getTitle());
                     adapter.setListMovie(movies);
                     loadingBar.setVisibility(View.INVISIBLE);

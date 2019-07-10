@@ -44,7 +44,10 @@ public class MovieCatalogFavoritesWidget extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
+
+
         for (int appWidgetId : appWidgetIds) {
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId,R.layout.movie_catalog_favorites_widget_banner);
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
