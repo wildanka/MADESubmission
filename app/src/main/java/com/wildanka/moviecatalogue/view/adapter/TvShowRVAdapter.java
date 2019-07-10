@@ -96,7 +96,7 @@ public class TvShowRVAdapter extends RecyclerView.Adapter<TvShowRVAdapter.MovieR
 
                     detailIntent.putExtra("movieId", tvShow.getIdTVShow());
                     detailIntent.putExtra("movieTitle", tvShow.getTitle());
-                    detailIntent.putExtra("moviePosterUri", MOVIE_POSTER_URI);
+                    detailIntent.putExtra("moviePosterUri", tvShow.getPosterPath());
                     detailIntent.putExtra("movieOverview", tvShow.getOverview());
                     detailIntent.putExtra("movieRating", tvShow.getRating());
                     detailIntent.putExtra("movieReleaseDate", tvShow.getDateYear());

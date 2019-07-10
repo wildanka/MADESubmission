@@ -100,7 +100,7 @@ public class MovieRVAdapter extends RecyclerView.Adapter<MovieRVAdapter.MovieRVV
                     detailIntent.putExtra("movieReleaseDate", movie.getDateYear());
                     detailIntent.putExtra("movieRating", movie.getRating());
                     detailIntent.putExtra("movieOverview", movie.getOverview());
-                    detailIntent.putExtra("moviePosterUri", MOVIE_POSTER_URI);
+                    detailIntent.putExtra("moviePosterUri", movie.getPosterPath());
                     detailIntent.putExtra("movieOriginalLanguage", movie.getOriginalLanguage());
                     detailIntent.putExtra("moviePopularity", movie.getPopularity());
                     detailIntent.putExtra("movieIsAdult", movie.isAdult());

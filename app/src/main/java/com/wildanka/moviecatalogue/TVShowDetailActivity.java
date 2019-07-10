@@ -18,6 +18,8 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import static com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP;
+
 
 public class TVShowDetailActivity extends AppCompatActivity {
     private TextView tvMovieTitle, tvRating, tvReleaseDate, tvOverview;
@@ -79,7 +81,7 @@ public class TVShowDetailActivity extends AppCompatActivity {
         tvReleaseDate.setText(movieReleaseDate);
         tvOverview.setText(movieOverview);
 //        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
-        Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
+        Picasso.get().load(URL_IMG_APP+MOVIE_POSTER_URI).into(ivMoviePoster);
 
         viewModel.checkFavoritesElseFetchTV(movieID).observe(this, new Observer<TvShow>() {
             @Override
