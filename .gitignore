@@ -12,3 +12,12 @@
 /captures
 .externalNativeBuild
 /app/build.gradle
+MADEContentProviderReceiver/local.properties
+MADEContentProviderReceiver/.idea/caches
+MADEContentProviderReceiver/.idea/libraries
+MADEContentProviderReceiver/.idea/modules.xml
+MADEContentProviderReceiver/.idea/workspace.xml
+MADEContentProviderReceiver/.idea/navEditor.xml
+MADEContentProviderReceiver/.idea/assetWizardSettings.xml
+MADEContentProviderReceiver/build
+MADEContentProviderReceiver/captures
