@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
@@ -23,6 +24,7 @@ import com.wildanka.moviecatalogue.db.MoviesDAO;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +34,8 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     private final Context mContext;
     private FavoritesMovieRoomDatabase database;
     private FavoritesRepository repository;
-    private LiveData<List<Movie>> movieLists;
+    private LiveData<List<Movie>> movieListsLiveData;
+    private List<Movie> movieLists;
     private static final String TAG = "StackRemoteViewsFactory";
     private MoviesDAO mMoviesDAO;
 
@@ -40,19 +43,25 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         mContext = context;
     }
 
+    public void favoritesMovieLists(LiveData<List<Movie>> favoritesMovieLists){
+        movieListsLiveData = favoritesMovieLists;
+    }
+
+
     @Override
     public void onCreate() {
-
-        movieLists = loadMovieDatabase(); // 3.
+        Log.e(TAG, "onCreate: WIDGET" );
+        loadMovieDatabase(); // 3.
 
 //        Log.e(TAG, "WIDGET onDataSetChanged: "+movieLists.getValue().get(0).getTitle());
 
     }
 
-    private LiveData<List<Movie>> loadMovieDatabase() {
+    private void loadMovieDatabase() {
         //Load data from SQLite
         database = FavoritesMovieRoomDatabase.getInstance(mContext); // 1. Buka Koneksi Database
         this.mMoviesDAO = database.moviesDAO(); //2. instansiasi dao
+        new LoadFavMovies(this, mMoviesDAO).execute();
         Log.e(TAG, "loadMovieDatabase: INI WIDGET ");
         if (mMoviesDAO.selectFavoritesMovies() != null) {
             Log.e(TAG, "WIDGET TIDAK NULL ");
@@ -60,13 +69,16 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         }else{
             Log.e(TAG, "WIDGET NULL ");
         }
-        return mMoviesDAO.selectFavoritesMovies();
+//        return mMoviesDAO.selectFavoritesMovies();
     }
-
-    @Override
+/*
+    private LiveData<List<Movie>> loadMovieDatabase() {
+        new LoadFavMovies(this,mMoviesDAO).execute()
+    }*/
+        @Override
     public void onDataSetChanged() {
         //TODO: Load Data dari SQLite, kemudian tampilkan poster berdasarkan URL yang disimpan
-
+            Log.e(TAG, "onDataSetChanged: WIDGET" );
         loadMovieDatabase();
 //        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/" + "b9uYMMbm87IBFOq59pppvkkkgNg.jpg";
         String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w92/";
@@ -143,5 +155,31 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     @Override
     public boolean hasStableIds() {
         return false;
+    }
+
+
+    static class LoadFavMovies extends AsyncTask<Context,Void,LiveData<List<Movie>>>{
+        private WeakReference<StackRemoteViewsFactory> remoteViewsFactoryWeakReference;
+        private MoviesDAO mMoviesDAO;
+
+        // only retain a weak reference to the activity
+        LoadFavMovies(StackRemoteViewsFactory context, MoviesDAO mMoviesDAO) {
+            remoteViewsFactoryWeakReference = new WeakReference<>(context);
+            this.mMoviesDAO = mMoviesDAO;
+        }
+
+        @Override
+        protected LiveData<List<Movie>> doInBackground(Context... contexts) {
+            return mMoviesDAO.selectFavoritesMovies();
+        }
+
+        @Override
+        protected void onPostExecute(LiveData<List<Movie>> movies) {
+            System.out.println(TAG+" | "+movies);
+            if (movies != null) {
+                Log.e(TAG, "onPostExecute: WIDGET "+movies.getValue().get(0).getTitle());
+            }
+            super.onPostExecute(movies);
+        }
     }
 }

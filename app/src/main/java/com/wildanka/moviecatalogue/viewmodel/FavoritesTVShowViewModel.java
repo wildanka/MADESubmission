@@ -36,10 +36,10 @@ public class FavoritesTVShowViewModel extends AndroidViewModel {
 
     public LiveData<Movie> checkFavoritesElseFetch(String movieID){
         loadFavorites(movieID);
-        return repository.checkFavoritesElseFetch(movieID);
+        return repository.checkIsFavoriteMovie(movieID);
     }
     private void loadFavorites(String movieID){
-        movieLiveData = repository.checkFavoritesElseFetch(movieID);
+        movieLiveData = repository.checkIsFavoriteMovie(movieID);
     }
 
     public LiveData<List<Movie>> getMovieLists(String language) {

@@ -86,15 +86,15 @@ public class MovieDetailActivity extends AppCompatActivity {
 //        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/"+movie.getPosterPath();
         Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
 
-        viewModel.checkFavoritesElseFetch(movieID).observe(this, new Observer<Movie>() {
+        viewModel.checkIsFavorite(movieID).observe(this, new Observer<Movie>() {
             @Override
             public void onChanged(Movie movie) {
-                if (movie != null){
-                    Log.d(TAG, "onChanged: "+movieID+" is a favorite");
-                    isFavorites = true;
-                }else{
+                if (movie == null){
                     Log.d(TAG, "onChanged: "+movieID+" not a favorite");
                     isFavorites = false;
+                }else{
+                    Log.d(TAG, "onChanged: "+movieID+" is a favorite");
+                    isFavorites = true;
                 }
             }
         });

@@ -2,7 +2,6 @@ package com.wildanka.moviecatalogue.viewmodel;
 
 import android.app.Application;
 
-import com.wildanka.moviecatalogue.data.MovieRepo;
 import com.wildanka.moviecatalogue.db.FavoritesRepository;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.TvShow;
@@ -34,9 +33,9 @@ public class FavoritesMovieTVViewModel extends AndroidViewModel {
         repository.removeMovieFromFavorites(movies);
     }
 
-    public LiveData<Movie> checkFavoritesElseFetch(String movieID){
+    public LiveData<Movie> checkIsFavorite(String movieID){
         loadFavoritesMovie(movieID);
-        return repository.checkFavoritesElseFetch(movieID);
+        return repository.checkIsFavoriteMovie(movieID);
     }
     public LiveData<List<Movie>> getMovieLists(String language) {
         if (movieLists == null) {
@@ -49,7 +48,7 @@ public class FavoritesMovieTVViewModel extends AndroidViewModel {
         return movieLists;
     }
     private void loadFavoritesMovie(String movieID){
-        movieLiveData = repository.checkFavoritesElseFetch(movieID);
+        movieLiveData = repository.checkIsFavoriteMovie(movieID);
     }
     private void loadMovieLists(String language){
         movieLists = repository.loadMovieDatabase();
@@ -66,7 +65,7 @@ public class FavoritesMovieTVViewModel extends AndroidViewModel {
 
     public LiveData<TvShow> checkFavoritesElseFetchTV(String tvShowID){
         loadFavoritesTVShow(tvShowID);
-        return repository.checkFavoritesElseFetchTV(tvShowID);
+        return repository.checkIsFavoriteTVShow(tvShowID);
     }
     public LiveData<List<TvShow>> getTVLists(String language) {
         if (tvLists == null) {
@@ -79,7 +78,7 @@ public class FavoritesMovieTVViewModel extends AndroidViewModel {
         return tvLists;
     }
     private void loadFavoritesTVShow(String tvShowID){
-        movieLiveData = repository.checkFavoritesElseFetch(tvShowID);
+        movieLiveData = repository.checkIsFavoriteMovie(tvShowID);
     }
     private void loadTVLists(String language){
         tvLists = repository.loadTVShowDatabase();
