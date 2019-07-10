@@ -116,10 +116,6 @@ public class MainActivity extends AppCompatActivity implements ChangeLanguageDia
                 Intent in = new Intent(MainActivity.this, ReminderActivity.class);
                 startActivity(in);
                 break;
-            case R.id.menu_widgets:
-                Toast.makeText(MainActivity.this, "search", Toast.LENGTH_SHORT).show();
-                System.out.println("clicked widget");
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
