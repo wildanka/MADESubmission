@@ -12,8 +12,6 @@ import android.widget.RemoteViewsService;
 import com.squareup.picasso.Picasso;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.db.FavoritesMovieRoomDatabase;
-import com.wildanka.moviecatalogue.db.FavoritesRepository;
-import com.wildanka.moviecatalogue.db.MoviesDAO;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 
 import java.io.IOException;
@@ -23,11 +21,8 @@ import static com.wildanka.moviecatalogue.BuildConfig.URL_IMG_WIDGET;
 
 public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private final Context mContext;
-    private FavoritesMovieRoomDatabase database;
-    private FavoritesRepository repository;
     private List<Movie> favoriteMovieLists;
     private static final String TAG = "StackRemoteViewsFactory";
-    private MoviesDAO mMoviesDAO;
 
     StackRemoteViewsFactory(Context context) {
         mContext = context;
@@ -40,7 +35,7 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public void onDataSetChanged() {
-        //TODO: Load Data dari SQLite, kemudian tampilkan poster berdasarkan URL yang disimpan
+        //Load Data dari SQLite, kemudian tampilkan poster berdasarkan URL yang disimpan
         favoriteMovieLists = FavoritesMovieRoomDatabase.getInstance(mContext).moviesDAO().selectFavoritesMoviesSync();
         System.out.println(TAG + " | " + favoriteMovieLists.get(0).getPosterPath());
         Log.e(TAG, "onDataSetChanged: WIDGET");
@@ -105,6 +100,4 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     public boolean hasStableIds() {
         return false;
     }
-
-
 }

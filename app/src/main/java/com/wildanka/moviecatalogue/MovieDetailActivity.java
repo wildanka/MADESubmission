@@ -120,17 +120,11 @@ public class MovieDetailActivity extends AppCompatActivity {
         isFavorites=true;
         setFavorite();
 
-        //TODO : Lakukan update terhadap data di stackView,
-        // Caranya? trigger AppWidgetManager notifyAppWidgetViewDataChanged
-//
-//        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
-//        appWidgetManager.notifyAppWidgetViewDataChanged(MovieCatalogFavoritesWidget.class,);
-
+        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+        // since it seems the onUpdate() is only fired on that:
         Intent intent = new Intent(this, MovieCatalogFavoritesWidget.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
 
-        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
-        // since it seems the onUpdate() is only fired on that:
         int[] ids = AppWidgetManager.getInstance(getApplication())
                 .getAppWidgetIds(new ComponentName(getApplication(), MovieCatalogFavoritesWidget.class));
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
