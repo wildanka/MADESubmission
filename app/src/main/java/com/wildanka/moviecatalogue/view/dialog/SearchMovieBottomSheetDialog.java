@@ -73,7 +73,7 @@ public class SearchMovieBottomSheetDialog extends BottomSheetDialogFragment {
                         tvBottomSheetTitle.setText("Search Movie");
                         break;
                     case R.id.rb_tv_shows:
-                        tvBottomSheetTitle.setText("Search TV Showsgit");
+                        tvBottomSheetTitle.setText("Search TV Show");
                         break;
                 }
             }
