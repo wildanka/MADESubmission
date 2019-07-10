@@ -30,12 +30,12 @@ public class FavoritesRepository {
     //region movie
     public void insertMovieDB(Movie movie) {
         new insertMovieData(mMoviesDAO).execute(movie);
-        Log.e(TAG, "movie data: " + movie.getIdMovie() + " Inserted");
+        Log.e(TAG, "movie data: " + movie.getIdMovie() + " with title : " + movie.getTitle() + " Inserted");
     }
 
     public void removeMovieFromFavorites(Movie movie) {
         new removeMovieData(mMoviesDAO).execute(movie);
-        Log.e(TAG, "movie data: " + movie.getIdMovie() + " Inserted");
+        Log.e(TAG, "movie data: " + movie.getIdMovie() + " with title : " + movie.getTitle() +  " Removed");
     }
 
     public LiveData<List<Movie>> loadMovieDatabase() {
@@ -43,13 +43,13 @@ public class FavoritesRepository {
         return mMoviesDAO.selectFavoritesMovies();
     }
 
-    public LiveData<Movie> checkFavoritesElseFetch(String idMovie) {
+    public LiveData<Movie> checkIsFavoriteMovie(String idMovie) {
         final MutableLiveData<Boolean> isFavorites = new MutableLiveData<>();
         final LiveData<Movie> resMovieData = mMoviesDAO.checkFavoriteMovies(idMovie);
         this.mMovieList = mMoviesDAO.checkFavoriteMovies(idMovie);
 
         if (resMovieData != null) {
-            Log.e(TAG, "favorite movies: " + resMovieData.getValue());
+            Log.e(TAG, "favorite movies: " + resMovieData.toString());
         } else {
             Log.e(TAG, "movie is not a favorite: " + resMovieData.getValue());
         }
@@ -88,17 +88,17 @@ public class FavoritesRepository {
     //region tvShow
     public void insertTVShowDB(TvShow tvShow) {
         new insertTVShowData(mMoviesDAO).execute(tvShow);
-        Log.e(TAG, "tv show data: " + tvShow.getIdTVShow() + " Inserted");
+        Log.e(TAG, "tv show data: " + tvShow.getIdTVShow() + " with title : " + tvShow.getTitle() + " Inserted");
     }
     public void removeTVShowFromFavorites(TvShow tvShow) {
         new removeTVShowData(mMoviesDAO).execute(tvShow);
-        Log.e(TAG, "movie data: " + tvShow.getIdTVShow() + " removed");
+        Log.e(TAG, "movie data: " + tvShow.getIdTVShow() + " with title : " + tvShow.getTitle() + " removed");
     }
 
     public LiveData<List<TvShow>> loadTVShowDatabase() {
         return mMoviesDAO.selectFavoritesTVShow();
     }
-    public LiveData<TvShow> checkFavoritesElseFetchTV(String idTVShow) {
+    public LiveData<TvShow> checkIsFavoriteTVShow(String idTVShow) {
         final MutableLiveData<Boolean> isFavorites = new MutableLiveData<>();
         final LiveData<TvShow> resMovieData = mMoviesDAO.checkFavoriteTVShow(idTVShow);
         this.mTvShowList = mMoviesDAO.checkFavoriteTVShow(idTVShow);
@@ -111,7 +111,7 @@ public class FavoritesRepository {
         return resMovieData;
     }
 
-    private static class insertTVShowData extends AsyncTask<TvShow, Void, Void> {
+    private static class insertTVShowData extends AsyncTask<TvShow, Void, String> {
         private MoviesDAO moviesDAOAsyncTask;
 
         insertTVShowData(MoviesDAO moviesDAOAsyncTask) {
@@ -119,9 +119,15 @@ public class FavoritesRepository {
         }
 
         @Override
-        protected Void doInBackground(TvShow... tvShows) {
+        protected String doInBackground(TvShow... tvShows) {
             moviesDAOAsyncTask.insertTVShow(tvShows[0]);
-            return null;
+            return "Favorite TV Show with title "+tvShows[0].getTitle()+"Succesfully Added";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            Log.e(TAG, "onPostExecute: "+s );
+            super.onPostExecute(s);
         }
     }
     private static class removeTVShowData extends AsyncTask<TvShow, Void, Void> {
