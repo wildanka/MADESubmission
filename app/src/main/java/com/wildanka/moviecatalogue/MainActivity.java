@@ -8,21 +8,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.wildanka.moviecatalogue.util.SharedPref;
-import com.wildanka.moviecatalogue.view.ReminderActivity;
-import com.wildanka.moviecatalogue.view.dialog.ChangeLanguageDialog;
-import com.wildanka.moviecatalogue.view.FavoritesFragment;
-import com.wildanka.moviecatalogue.view.MovieFragment;
-import com.wildanka.moviecatalogue.view.TVShowFragment;
-import com.wildanka.moviecatalogue.view.dialog.SearchMovieBottomSheetDialog;
-import com.wildanka.moviecatalogue.viewmodel.MovieTVViewModel;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.wildanka.moviecatalogue.util.SharedPref;
+import com.wildanka.moviecatalogue.view.FavoritesFragment;
+import com.wildanka.moviecatalogue.view.MovieFragment;
+import com.wildanka.moviecatalogue.view.ReminderActivity;
+import com.wildanka.moviecatalogue.view.TVShowFragment;
+import com.wildanka.moviecatalogue.view.dialog.ChangeLanguageDialog;
+import com.wildanka.moviecatalogue.view.dialog.SearchMovieBottomSheetDialog;
+import com.wildanka.moviecatalogue.viewmodel.MovieTVViewModel;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity implements ChangeLanguageDialog.OnChangeLanguageListener {
@@ -76,7 +79,9 @@ public class MainActivity extends AppCompatActivity implements ChangeLanguageDia
         setSupportActionBar(toolbar);
         //binding view
 
-
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date(System.currentTimeMillis());
+        Log.e("TodayDate", formatter.format(date));
     }
 
     @Override

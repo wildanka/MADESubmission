@@ -8,15 +8,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-import com.wildanka.moviecatalogue.model.entity.TvShow;
-import com.wildanka.moviecatalogue.viewmodel.FavoritesMovieTVViewModel;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.squareup.picasso.Picasso;
+import com.wildanka.moviecatalogue.model.entity.TvShow;
+import com.wildanka.moviecatalogue.viewmodel.FavoritesMovieTVViewModel;
 
 import static com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP;
 

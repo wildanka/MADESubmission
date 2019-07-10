@@ -2,6 +2,8 @@ package com.wildanka.moviecatalogue.data;
 
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.MovieFeeds;
 import com.wildanka.moviecatalogue.model.entity.TvShow;
@@ -11,7 +13,6 @@ import com.wildanka.moviecatalogue.util.ApiClient;
 
 import java.util.List;
 
-import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,7 +40,6 @@ public class SearchRepo {
                 if (response.code() == 200) {
                     feeds.setValue(response.body());
                     data.setValue(feeds.getValue().getMovies());
-
                 } else {
                     Log.e(TAG, "onResponse: " + response.errorBody().toString());
                     Log.e(TAG, "onResponse: " + response.code());

@@ -24,6 +24,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -62,8 +63,12 @@ public class AlarmReceiver extends BroadcastReceiver {
         if (sp.loadReleaseReminderState() && notifId == ID_RELEASE_REMINDER) {
             //fetch data from API if release reminder is enabled
             ApiMovies mApi = ApiClient.getClient().create(ApiMovies.class);
-            String todayDate = "2019-07-03";
-            Call<ReleaseTodayData> call = mApi.getTodayRelease(API_V3_KEY,todayDate,todayDate,sp.loadLanguage());
+            //get today date
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = new Date(System.currentTimeMillis());
+            Log.d(TAG, "TodayDate"+formatter.format(date));
+
+            Call<ReleaseTodayData> call = mApi.getTodayRelease(API_V3_KEY,formatter.format(date),formatter.format(date),sp.loadLanguage());
 
             call.enqueue(new Callback<ReleaseTodayData>() {
                 @Override
