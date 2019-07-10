@@ -5,6 +5,7 @@ import android.database.Cursor;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 import com.wildanka.moviecatalogue.model.entity.TvShow;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -34,6 +35,9 @@ public interface MoviesDAO {
 
     @Query("SELECT * FROM movies")
     LiveData<List<Movie>> selectFavoritesMovies();
+
+    @Query("SELECT * FROM movies")
+    List<Movie> selectFavoritesMoviesSync();
 
     @Query("SELECT * FROM tv_shows")
     LiveData<List<TvShow>> selectFavoritesTVShow();

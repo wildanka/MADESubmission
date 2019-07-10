@@ -1,22 +1,15 @@
 package com.wildanka.moviecatalogue.widget;
 
-import android.app.Application;
-import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import androidx.lifecycle.LiveData;
-
 import com.squareup.picasso.Picasso;
-import com.wildanka.moviecatalogue.MovieCatalog;
 import com.wildanka.moviecatalogue.R;
 import com.wildanka.moviecatalogue.db.FavoritesMovieRoomDatabase;
 import com.wildanka.moviecatalogue.db.FavoritesRepository;
@@ -24,18 +17,15 @@ import com.wildanka.moviecatalogue.db.MoviesDAO;
 import com.wildanka.moviecatalogue.model.entity.Movie;
 
 import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
 import java.util.List;
 
+import static com.wildanka.moviecatalogue.BuildConfig.URL_IMG_WIDGET;
+
 public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
-    private final List<Bitmap> mWidgetItems = new ArrayList<>();
-    private final List<Uri> moviePosterUri = new ArrayList<>();
     private final Context mContext;
     private FavoritesMovieRoomDatabase database;
     private FavoritesRepository repository;
-    private LiveData<List<Movie>> movieListsLiveData;
-    private List<Movie> movieLists;
+    private List<Movie> favoriteMovieLists;
     private static final String TAG = "StackRemoteViewsFactory";
     private MoviesDAO mMoviesDAO;
 
@@ -43,69 +33,21 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
         mContext = context;
     }
 
-    public void favoritesMovieLists(LiveData<List<Movie>> favoritesMovieLists){
-        movieListsLiveData = favoritesMovieLists;
-    }
-
-
     @Override
     public void onCreate() {
         Log.e(TAG, "onCreate: WIDGET" );
-        loadMovieDatabase(); // 3.
-
-//        Log.e(TAG, "WIDGET onDataSetChanged: "+movieLists.getValue().get(0).getTitle());
-
     }
 
-    private void loadMovieDatabase() {
-        //Load data from SQLite
-        database = FavoritesMovieRoomDatabase.getInstance(mContext); // 1. Buka Koneksi Database
-        this.mMoviesDAO = database.moviesDAO(); //2. instansiasi dao
-        new LoadFavMovies(this, mMoviesDAO).execute();
-        Log.e(TAG, "loadMovieDatabase: INI WIDGET ");
-        if (mMoviesDAO.selectFavoritesMovies() != null) {
-            Log.e(TAG, "WIDGET TIDAK NULL ");
-            System.out.println(TAG+" | "+mMoviesDAO.selectFavoritesMovies().getValue());
-        }else{
-            Log.e(TAG, "WIDGET NULL ");
-        }
-//        return mMoviesDAO.selectFavoritesMovies();
-    }
-/*
-    private LiveData<List<Movie>> loadMovieDatabase() {
-        new LoadFavMovies(this,mMoviesDAO).execute()
-    }*/
-        @Override
+    @Override
     public void onDataSetChanged() {
         //TODO: Load Data dari SQLite, kemudian tampilkan poster berdasarkan URL yang disimpan
-            Log.e(TAG, "onDataSetChanged: WIDGET" );
-        loadMovieDatabase();
-//        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w185/" + "b9uYMMbm87IBFOq59pppvkkkgNg.jpg";
-        String MOVIE_POSTER_URI = "https://image.tmdb.org/t/p/w92/";
-
-        moviePosterUri.add(Uri.parse(MOVIE_POSTER_URI + "b9uYMMbm87IBFOq59pppvkkkgNg.jpg"));
-        moviePosterUri.add(Uri.parse(MOVIE_POSTER_URI + "lIv1QinFqz4dlp5U4lQ6HaiskOZ.jpg"));
-        moviePosterUri.add(Uri.parse(MOVIE_POSTER_URI + "gdiLTof3rbPDAmPaCf4g6op46bj.jpg"));
-        moviePosterUri.add(Uri.parse(MOVIE_POSTER_URI + "2eQfjqlvPAxd9aLDs8DvsKLnfed.jpg"));
-        try {
-            Bitmap poster = Picasso.get().load(MOVIE_POSTER_URI + "b9uYMMbm87IBFOq59pppvkkkgNg.jpg").get();
-            Bitmap poster1 = Picasso.get().load(MOVIE_POSTER_URI + "lIv1QinFqz4dlp5U4lQ6HaiskOZ.jpg").get();
-            Bitmap poster2 = Picasso.get().load(MOVIE_POSTER_URI + "gdiLTof3rbPDAmPaCf4g6op46bj.jpg").get();
-            Bitmap poster3 = Picasso.get().load(MOVIE_POSTER_URI + "2eQfjqlvPAxd9aLDs8DvsKLnfed.jpg").get();
-            mWidgetItems.add(poster);
-            mWidgetItems.add(poster1);
-            mWidgetItems.add(poster2);
-            mWidgetItems.add(poster3);
-        } catch (IOException e) {
-            e.printStackTrace();
+        favoriteMovieLists = FavoritesMovieRoomDatabase.getInstance(mContext).moviesDAO().selectFavoritesMoviesSync();
+        System.out.println(TAG + " | " + favoriteMovieLists.get(0).getPosterPath());
+        Log.e(TAG, "onDataSetChanged: WIDGET");
+        for (Movie movie : favoriteMovieLists) {
+            Log.e(TAG, "onDataSetChanged: "+ URL_IMG_WIDGET+movie.getPosterPath());
         }
 
-
-        /*mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.darth_vader));
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.star_wars_logo));
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.storm_trooper));
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.starwars));
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.getResources(), R.drawable.falcon));*/
     }
 
     @Override
@@ -115,9 +57,9 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
 
     @Override
     public int getCount() {
-        if (mWidgetItems != null){ // karena sekarang dataset stackwidget masih ditanam, maka
+        if (favoriteMovieLists != null){ // karena sekarang dataset stackwidget masih ditanam, maka
             // "mWidgetItems != null" akan selalu menghasilkan 'true'
-            return mWidgetItems.size();
+            return favoriteMovieLists.size();
         }else{
             return 0;
         }
@@ -126,8 +68,15 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     @Override
     public RemoteViews getViewAt(int position) {
         RemoteViews remoteViews = new RemoteViews(mContext.getPackageName(), R.layout.widget_item);
-        remoteViews.setImageViewBitmap(R.id.iv_movie_poster_widget, mWidgetItems.get(position));
+        Log.e(TAG, "getViewAt: "+ URL_IMG_WIDGET+favoriteMovieLists.get(position).getPosterPath());
+        try {
+            Bitmap poster = Picasso.get().load(Uri.parse(URL_IMG_WIDGET+favoriteMovieLists.get(position).getPosterPath())).get();
+            remoteViews.setImageViewBitmap(R.id.iv_movie_poster_widget, poster);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        remoteViews.setTextViewText(R.id.tv_movie_title_widget, favoriteMovieLists.get(position).getTitle());
         Bundle extras = new Bundle();
         extras.putInt(MovieCatalogFavoritesWidget.EXTRA_ITEM, position);
         Intent fillIntent = new Intent();
@@ -158,28 +107,4 @@ public class StackRemoteViewsFactory implements RemoteViewsService.RemoteViewsFa
     }
 
 
-    static class LoadFavMovies extends AsyncTask<Context,Void,LiveData<List<Movie>>>{
-        private WeakReference<StackRemoteViewsFactory> remoteViewsFactoryWeakReference;
-        private MoviesDAO mMoviesDAO;
-
-        // only retain a weak reference to the activity
-        LoadFavMovies(StackRemoteViewsFactory context, MoviesDAO mMoviesDAO) {
-            remoteViewsFactoryWeakReference = new WeakReference<>(context);
-            this.mMoviesDAO = mMoviesDAO;
-        }
-
-        @Override
-        protected LiveData<List<Movie>> doInBackground(Context... contexts) {
-            return mMoviesDAO.selectFavoritesMovies();
-        }
-
-        @Override
-        protected void onPostExecute(LiveData<List<Movie>> movies) {
-            System.out.println(TAG+" | "+movies);
-            if (movies != null) {
-                Log.e(TAG, "onPostExecute: WIDGET "+movies.getValue().get(0).getTitle());
-            }
-            super.onPostExecute(movies);
-        }
-    }
 }
