@@ -124,7 +124,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 //        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
 //        appWidgetManager.notifyAppWidgetViewDataChanged(MovieCatalogFavoritesWidget.class,);
 
-      /*  Intent intent = new Intent(this, MovieCatalogFavoritesWidget.class);
+        Intent intent = new Intent(this, MovieCatalogFavoritesWidget.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
 
         // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
@@ -132,7 +132,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         int[] ids = AppWidgetManager.getInstance(getApplication())
                 .getAppWidgetIds(new ComponentName(getApplication(), MovieCatalogFavoritesWidget.class));
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
-        sendBroadcast(intent);*/
+        sendBroadcast(intent);
     }
 
 
@@ -152,6 +152,16 @@ public class MovieDetailActivity extends AppCompatActivity {
         viewModel.removeFavoriteMovieData(movie);
         isFavorites=false;
         setFavorite();
+
+        Intent intent = new Intent(this, MovieCatalogFavoritesWidget.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+
+        // Use an array and EXTRA_APPWIDGET_IDS instead of AppWidgetManager.EXTRA_APPWIDGET_ID,
+        // since it seems the onUpdate() is only fired on that:
+        int[] ids = AppWidgetManager.getInstance(getApplication())
+                .getAppWidgetIds(new ComponentName(getApplication(), MovieCatalogFavoritesWidget.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);
     }
 
 
