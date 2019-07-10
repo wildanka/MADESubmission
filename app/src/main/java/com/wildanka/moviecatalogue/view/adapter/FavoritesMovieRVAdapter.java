@@ -21,6 +21,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import static com.wildanka.moviecatalogue.BuildConfig.URL_IMG_APP;
+
 public class FavoritesMovieRVAdapter extends RecyclerView.Adapter<FavoritesMovieRVAdapter.MovieRVViewHolder> {
     private static final String TAG = "MovieRVAdapter";
     private Context mContext;
@@ -86,7 +88,7 @@ public class FavoritesMovieRVAdapter extends RecyclerView.Adapter<FavoritesMovie
             tvShortDesc.setText(movie.getOverview());
             tvReleaseDate.setText(movie.getDateYear());
             final String MOVIE_POSTER_URI = movie.getPosterPath();
-            Picasso.get().load(MOVIE_POSTER_URI).into(ivMoviePoster);
+            Picasso.get().load(URL_IMG_APP+MOVIE_POSTER_URI).into(ivMoviePoster);
             Log.e(TAG, movie.getPosterPath());
 
             itemView.setOnClickListener(new View.OnClickListener() {
