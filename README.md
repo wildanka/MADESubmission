@@ -1,5 +1,6 @@
 # MADESubmission
-My Dicoding MADE Course Submission. Create a simple Movie Catalogue app using open TMDB API, which users can see movie overview, save it to favorite so user can view it locally, and display the favorited movies on the widgets
+My Dicoding MADE Course Submission. <br> <br>
+Create a simple Movie Catalogue app using open TMDB API, which users can see movie overview, save it to favorite so user can view it locally, and display the favorited movies on the widgets
 
 ##### Table of Contents  
 [Displaying List of Movies and TV Shows from API](#fetching-list-of-data-from-tmdb-api-and-displaying-it)  
